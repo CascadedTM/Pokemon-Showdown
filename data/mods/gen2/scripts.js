@@ -1,5 +1,6 @@
 'use strict';
-
+let scaleMultPOS;
+let scaleMultNEG;
 /**
  * Gen 2 scripts.
  */
@@ -11,25 +12,49 @@ let BattleScripts = {
 	// BattlePokemon scripts.
 	pokemon: {
 		getStat(statName, unboosted, unmodified, fastReturn) {
-			statName = /** @type {StatNameExceptHP} */(toID(statName));
+			statName = /** @type {StatNameExceptHP} */(toId(statName));
 			// @ts-ignore - type checking prevents 'hp' from being passed, but we're paranoid
 			if (statName === 'hp') throw new Error("Please read `maxhp` directly");
 
 			// base stat
 			let stat = this.storedStats[statName];
-
+			
+				
 			// Stat boosts.
 			if (!unboosted) {
-				// @ts-ignore
+				// @ts-ignore				
 				let boost = this.boosts[statName];
 				if (boost > 6) boost = 6;
 				if (boost < -6) boost = -6;
 				if (boost >= 0) {
-					let boostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
-					stat = Math.floor(stat * boostTable[boost]);
+					
+					//* // let boostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+					//* // stat = Math.floor(stat * boostTable[boost]);
+				//* // } else {
+					//* // let numerators = [100, 66, 50, 40, 33, 28, 25];
+					//* // stat = Math.floor(stat * numerators[-boost] / 100);
+				//* // }
+				
+					// // let j = 0;
+					// // let nuTab = [1, 1.2, 1.5, 1.75, 1.92, 2.1, 2.25];
+					let boostTable = [10000000, 12500000, 13333333, 14222222, 15555555, 16666666, 17777777];
+						stat = Math.round(stat *  boostTable[boost]); 
+						stat = Math.floor(stat / boostTable[0]); 
+						scaleMultPOS = boostTable[boost];
+					
+					// // while (j !== boost) {
+						// // j++;
+					// // } 	
+					// // if (j != 0) {	
+						// // stat = Math.round(stat * Math.pow(nuTab[j],-1));
+						// // scaleMultPOS = Math.floor(10000000 * (boostTable[j] * Math.pow(nuTab[j],-1)));
+					// // }
+
 				} else {
-					let numerators = [100, 66, 50, 40, 33, 28, 25];
-					stat = Math.floor(stat * numerators[-boost] / 100);
+					let numerators = [10000000, 8000000, 7500000, 7031250, 6428571, 6000000, 5555555];
+						stat = Math.round(stat * numerators[-boost]); 
+						stat = Math.ceil(stat / numerators[0]);
+						scaleMultNEG = numerators[-boost];
 				}
 			}
 
@@ -43,17 +68,19 @@ let BattleScripts = {
 					stat = Math.floor(stat / 2);
 				}
 			}
-
+			
+			
+			
 			// Gen 2 caps stats at 999 and min is 1.
 			stat = this.battle.clampIntRange(stat, 1, 999);
 			if (fastReturn) return stat;
 
 			// Screens
-			if (!unboosted) {
-				if ((this.side.sideConditions['reflect'] && statName === 'def') || (this.side.sideConditions['lightscreen'] && statName === 'spd')) {
-					stat *= 2;
-				}
-			}
+			// * // if (!unboosted) {
+				// * // if ((this.side.sideConditions['reflect'] && statName === 'def') || (this.side.sideConditions['lightscreen'] && statName === 'spd')) {
+					// * // stat *= 2;
+				// * // }
+			// * // }
 
 			// Treat here the items.
 			if ((['Cubone', 'Marowak'].includes(this.template.species) && this.item === 'thickclub' && statName === 'atk') || (this.template.species === 'Pikachu' && this.item === 'lightball' && statName === 'spa')) {
@@ -195,6 +222,7 @@ let BattleScripts = {
 		} else {
 			accuracy = this.runEvent('Accuracy', target, pokemon, move, accuracy);
 		}
+		
 		// Now, let's calculate the accuracy.
 		if (accuracy !== true) {
 			accuracy = Math.floor(accuracy * 255 / 100);
@@ -208,7 +236,7 @@ let BattleScripts = {
 				}
 			}
 			if (!move.ignoreAccuracy) {
-				if (pokemon.boosts.accuracy > 0) {
+				if (pokemon.boosts.accuracy > 0) { 
 					accuracy *= positiveBoostTable[pokemon.boosts.accuracy];
 				} else {
 					accuracy *= negativeBoostTable[-pokemon.boosts.accuracy];
@@ -227,20 +255,77 @@ let BattleScripts = {
 			accuracy = this.runEvent('Accuracy', target, pokemon, move, accuracy);
 		}
 		accuracy = this.runEvent('ModifyAccuracy', target, pokemon, move, accuracy);
+		
 		if (accuracy !== true) accuracy = Math.max(accuracy, 0);
 		if (move.alwaysHit) {
 			accuracy = true;
 		} else {
 			accuracy = this.runEvent('Accuracy', target, pokemon, move, accuracy);
-		}
+		} 
+
 		if (accuracy !== true && accuracy !== 255 && !this.randomChance(accuracy, 256)) {
 			this.attrLastMove('[miss]');
 			this.add('-miss', pokemon);
 			damage = false;
 			return damage;
+	// // // !
+	
+			// counting = this.effectData.etc activeTurns how does it count them? merely a number initializing 
+			// ^& reinitializing is yet a mystery
+			
+			// // if (this.attrLastMove('[miss]')) counting++;
+			// // 2. this.boost = {('spa': 1)}; Maybe only if last move used was special / up Crit Ratio by 1
+			// // 3. pokemon.setStatus('confusion');
+			// // 5. if (target.lastMove.id !== 'swagger' && pokemon.boosts['atk'] <= 2) this.boost = {('atk': 1)};
+			// // 6* this.cancelMove; OnBeforeNextTurn
+			// // 7. this.useMove('bide', pokemon);		
+			// // 9. move.selfSwitch (essentially after bide ends and misses, not specifically a miss count) 
+			
+			var aCounting;
+			if (pokemon.moveThisTurn === false) {
+				if (this.effectData.counter === [null, undefined]) this.effectData.counter = 0; 
+			// how to initialize ?
+
+				aCounting = this.effectData.counter;
+				aCounting++;
+				switch (aCounting) {
+					case 3: 
+						this.boost({spa: 1});
+						// if (move.category === 'Special') Crit Ratio++
+						//let critRatio = this.runEvent('ModifyCritRatio', pokemon, null, 	// move, move.critRatio 
+						aCounting++; 
+				// break;}
+					case 4: 
+						if (target.lastMove && target.lastMove.id !== 'swagger') this.boost({atk: 1});
+						aCounting++;
+				// break;}
+					case 5: 
+						if (!pokemon.volatiles['confusion']) {
+							pokemon.addVolatile('confusion');
+							aCounting++;
+						} else {	aCounting = 0;} 
+						//when confused the player has a hitSelf chance, this makes things weird						
+				// break;}
+					// case 6: this.cancelMove;
+					case 7:
+						// this.cancelMove;
+						this.useMove('bide', pokemon);	
+						aCounting++;
+				// break;}
+					case 8: 
+						this.useMove('batonpass', pokemon);
+						move.selfSwitch =  true;
+						aCounting = 0;
+				// break;}
+				}	
+			}			
+	// // // !	
 		}
+
+
 		move.totalDamage = 0;
 		pokemon.lastDamage = 0;
+		
 		if (move.multihit) {
 			let hits = move.multihit;
 			if (Array.isArray(hits)) {
@@ -251,6 +336,7 @@ let BattleScripts = {
 				}
 			}
 			hits = Math.floor(hits);
+			
 			let nullDamage = true;
 			/**@type {number | undefined | false} */
 			let moveDamage;
@@ -448,6 +534,7 @@ let BattleScripts = {
 					this.debug('Cannot flinch a sleeping or frozen target');
 					continue;
 				}
+				 
 				// Multi-hit moves only roll for status once
 				if (!move.multihit || move.lastHit) {
 					let effectChance = Math.floor((secondary.chance || 100) * 255 / 100);
@@ -468,7 +555,7 @@ let BattleScripts = {
 			}
 		}
 		if (move.selfSwitch && pokemon.hp) {
-			pokemon.switchFlag = move.id;
+			pokemon.switchFlag = move.fullname;
 		}
 		return damage;
 	},
@@ -509,7 +596,7 @@ let BattleScripts = {
 		}
 
 		// If there's a fix move damage, we run it
-		if (move.damage) {
+		if (move.damage) {	
 			return move.damage;
 		}
 
@@ -533,22 +620,245 @@ let BattleScripts = {
 			return basePower;
 		}
 		basePower = this.clampIntRange(basePower, 1);
-
+	// * //
+		let attacker = pokemon;
+		let defender = target;
+		if (move.useTargetOffensive) attacker = target;
+		if (move.useSourceDefensive) defender = pokemon;
+		/** @type {StatNameExceptHP} */
+		let atkType = (move.category === 'Physical') ? 'atk' : 'spa';
+		/** @type {StatNameExceptHP} */
+		let defType = (move.defensiveCategory === 'Physical') ? 'def' : 'spd';
+		let unboosted = false;
+		let noburndrop = false;
+	// * //
 		// Checking for the move's Critical Hit ratio
 		let critRatio = this.runEvent('ModifyCritRatio', pokemon, target, move, move.critRatio || 0);
 		critRatio = this.clampIntRange(critRatio, 0, 5);
 		let critMult = [0, 16, 8, 4, 3, 2];
-		let isCrit = move.willCrit || false;
-		if (typeof move.willCrit === 'undefined') {
-			if (critRatio) {
-				isCrit = this.randomChance(1, critMult[critRatio]);
+		//* // move.crit = move.willCrit || false;
+		
+	// // // !	
+		let modal = Math.ceil(attacker.maxhp * 0.19);
+		let vitals = (attacker.status === 'tox') ? 'true' : 'false';
+		let nuVitals = (attacker.status === 'psn' && attacker.hp < modal) ? 'true' : 'false';	
+		
+		if (!attacker.hasType('Beast')) {
+			
+			if (vitals === 'true') {
+				critRatio = this.clampIntRange(critRatio, 0, 3);			 
+				critMult.splice(1, 2); 
+				//// [0, 4, 3, 2];
+			} else if (vitals === 'true' && attacker.hp < modal) {	
+				critRatio = this.clampIntRange(critRatio, 0, 2);			
+				critMult.splice(1, 3);
+							// (i, x)
+				//// [0, 3, 2];
+			}	//   [0, 8, 4, 3, 2]
+			
+			if (attacker.status === 'psn' || attacker.hp < modal) {
+				critRatio = this.clampIntRange(critRatio, 0, 4);			
+				critMult.splice(1, 1);
+				//// [0, 8, 4, 3, 2]; 
+			} 
+			
+			if (nuVitals === 'true' && vitals === 'false') {		
+				critRatio = this.clampIntRange(critRatio, 0, 3);	//? What happens if range is 4 but list is 3?
+				critMult.splice(1, 2); 
+				//// [0, 4, 3, 2];
+			}
+		}
+		
+		if (attacker.hasType('Beast') && ['tox', 'psn'].includes(attacker.status)) {		
+			critRatio = this.clampIntRange(critRatio, 0, 3);				  
+			critMult.splice(1, 2); 
+			//// [0, 4, 3, 2];
+		} 	
+		
+		if (type === 'Fire' && defender.hasType('Bird')) {
+			
+			if ([nuVitals, vitals].includes('false')) {
+				critRatio = this.clampIntRange(critRatio, 0, 4);
+			} else if ([nuVitals, vitals].includes('true')) { 
+				critRatio = this.clampIntRange(critRatio, 0, 2);
+				if (vitals === 'true' && attacker.hp < modal) {	
+					critRatio = this.clampIntRange(critRatio, 0, 1);
+				}
+			} else if ((attacker.status === 'psn' && vitals === 'false') || attacker.hp < modal) { 
+				critRatio = this.clampIntRange(critRatio, 0, 3);
+			}
+			
+			critMult.splice(1, 1); 
+			//// [0, 8, 4, 3, 2]; 
+		}		
+		
+		if (type === 'Fighting' && defender.hasType('Ice')) {
+			
+			if ([nuVitals, vitals].includes('false')) { 
+				critRatio = this.clampIntRange(critRatio, 0, 4);
+			} else if ([nuVitals, vitals].includes('true')) { 
+				critRatio = this.clampIntRange(critRatio, 0, 2);
+				if (vitals === 'true' && attacker.hp < modal) {
+					critRatio = this.clampIntRange(critRatio, 0, 1);
+				}
+			} else if ((attacker.status === 'psn' && vitals === 'false') || attacker.hp < modal) { 
+				critRatio = this.clampIntRange(critRatio, 0, 3);
+			}
+			
+			critMult.splice(1, 1); 
+			//// [0, 8, 4, 3, 2]; 
+		}			
+		
+		if (type === 'Steel' && ['Ice', 'Ghost'].includes(defender.hasType)) {
+			
+			//// [0, 4, 3, 2]; else //// [0, 8, 4, 3, 2];
+			if (attacker.hasType('Steel') && defender.hasType('Ice')) {
+				
+				if ([nuVitals, vitals].includes('false')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 3);
+				} else if ([nuVitals, vitals].includes('true')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 1);	
+					if (vitals === 'true' && attacker.hp < modal) {
+						move.crit = true;
+					}
+				} else if (attacker.status === 'psn' || attacker.hp < modal) { 
+					critRatio = this.clampIntRange(critRatio, 0, 2);
+				}
+				
+				critMult.splice(1, 2);
+				
+			} else if (attacker.hasType('Steel') && defender.hasType('Ghost') && this.field.isWeather('sunnyday')) {
+				
+				if ([nuVitals, vitals].includes('false')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 3);
+				} else if ([nuVitals, vitals].includes('true')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 1);	
+					if (vitals === 'true' && attacker.hp < modal) {
+						move.crit = true;
+					}
+				} else if ((attacker.status === 'psn' && vitals === 'false') || attacker.hp < modal) { 
+					critRatio = this.clampIntRange(critRatio, 0, 2);
+				}	
+				
+				critMult.splice(1, 2);
+				
+			} else	{
+				
+				if ([nuVitals, vitals].includes('false')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 4);
+				} else if ([nuVitals, vitals].includes('true')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 2);
+					if (vitals === 'true' && attacker.hp < modal) {
+						critRatio = this.clampIntRange(critRatio, 0, 1);
+					}
+				} else if ((attacker.status === 'psn' && vitals === 'false') || attacker.hp < modal) { 
+					critRatio = this.clampIntRange(critRatio, 0, 3);
+				}
+				
+				critMult.splice(1, 1);; 
+				
 			}
 		}
 
-		if (isCrit && this.runEvent('CriticalHit', target, null, move)) {
-			target.getMoveHitData(move).crit = true;
+		if (defender.hasType('Ghost')) {
+			
+			if (['lockon', 'foresight', 'mindreader'].includes(pokemon.lastMove.id) 
+				&& pokemon.moveLastTurnResult === true) {
+					
+				if ([nuVitals, vitals].includes('false')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 4);
+				} else if ([nuVitals, vitals].includes('true')) { 
+					critRatio = this.clampIntRange(critRatio, 0, 2); //[0, X, X, 3, 2];
+					if (vitals === 'true' && attacker.hp < modal) {
+						critRatio = this.clampIntRange(critRatio, 0, 1);  //[0, X, 4, 3, 2];
+					}
+				} else if ((attacker.status === 'psn' && vitals === 'false') || attacker.hp < modal) { 
+					critRatio = this.clampIntRange(critRatio, 0, 3); //[0, X, X, X, 2];
+				}
+				// [0, 8, 4, 3, 2];
+				critMult.splice(1, 1);
+				
+				/* if (defender.status === 'par' && attacker.hasType('Steel')) {
+					critRatio--; ////= this.clampIntRange(critRatio, 0, 3);
+					//[0, 4, 3, 2]; 
+					//critMult.shift(); 
+					critMult.splice(1, 1);
+				} */
+			}
+			
+			if (defender.status === 'par') {
+				if (attacker.hp < modal) { 
+					critRatio = this.clampIntRange(critRatio, 0, 2);
+				} else {	critRatio = this.clampIntRange(critRatio, 0, 3);
+				} // else if ooh spooky
+				critMult.splice(1, 2); 
+				//// [0, 4, 3, 2]; 	
+			}
+		}
+	// // // !		
+		
+		//* // 
+		move.crit = move.willCrit || false;
+		//* // 
+		
+		if (typeof move.willCrit === 'undefined') {
+			if (critRatio) {
+				move.crit = this.randomChance(1, critMult[critRatio]);
+			}
 		}
 
+		if (move.crit) {
+			move.crit = this.runEvent('CriticalHit', target, null, move);
+		}
+		
+	//*//*//
+		if (move.crit === !false && defender.hasType('Fire')) {
+			if (type === 'Ice') {
+				move.crit = false;
+				if (!suppressMessages) {
+					this.add('-crit', target);
+					this.add('-fail', target);
+				}
+			}
+		}
+		if (move.crit === !false && defender.hasType('Electric')) {
+			if (type === 'Flying') {
+				move.crit = false;
+				if (!suppressMessages) {
+					this.add('-crit', target);
+					this.add('-fail', target);
+				}
+			}
+		}
+		if (move.crit === !false && defender.hasType('Poison')) {
+			if (type === 'Fighting' || ['psn', 'tox'].includes(attacker.status)) {
+				move.crit = false;
+				if (!suppressMessages) {
+					this.add('-crit', target);
+					this.add('-fail', target);
+				}
+			}
+		}
+		if (move.crit === !false && defender.hasType('Fairy')) {
+			if (attacker.hasType('Fighting') && type === 'Fighting') {
+				move.crit = false;
+				if (!suppressMessages) {
+					this.add('-crit', target);
+					this.add('-fail', target);
+				}
+			}
+		}
+		if (move.crit === !false && defender.hasType('Bird')) {
+			if (attacker.hasType('Bug') && type === 'Bug') {
+				move.crit = false;
+				if (!suppressMessages) {
+					this.add('-crit', target);
+					this.add('-fail', target);
+				}
+			}
+		}
+	//*//*//
+		
 		// Happens after crit calculation
 		if (basePower) {
 			// confusion damage
@@ -560,9 +870,9 @@ let BattleScripts = {
 			} else {
 				basePower = this.runEvent('BasePower', pokemon, target, move, basePower, true);
 			}
-			if (basePower && move.basePowerModifier) {
-				basePower *= move.basePowerModifier;
-			}
+			if (basePower && move.basePowerModifier) { 
+				basePower *= move.basePowerModifier;  
+			 }
 		}
 		if (!basePower) return 0;
 		basePower = this.clampIntRange(basePower, 1);
@@ -576,33 +886,220 @@ let BattleScripts = {
 			level = move.allies[0].level;
 		}
 
-		let attacker = pokemon;
-		let defender = target;
-		if (move.useTargetOffensive) attacker = target;
-		if (move.useSourceDefensive) defender = pokemon;
-		/** @type {StatNameExceptHP} */
-		let atkType = (move.category === 'Physical') ? 'atk' : 'spa';
-		/** @type {StatNameExceptHP} */
-		let defType = (move.defensiveCategory === 'Physical') ? 'def' : 'spd';
-		let unboosted = false;
-		let noburndrop = false;
+		//* // let attacker = pokemon;
+		//* // let defender = target;
+		//* // if (move.useTargetOffensive) attacker = target;
+		//* // if (move.useSourceDefensive) defender = pokemon;
+		//* // /** @type {StatNameExceptHP} */
+		//* // let atkType = (move.category === 'Physical') ? 'atk' : 'spa';
+		//* // /** @type {StatNameExceptHP} */
+		//* // let defType = (move.defensiveCategory === 'Physical') ? 'def' : 'spd';
+		//* // let unboosted = false;
+		//* // let noburndrop = false;
+		
 
 		// The move is a critical hit. Several things happen here.
-		if (isCrit) {
+		if (move.crit) {
 			// Level is doubled for damage calculation.
-			level *= 2;
+			
+			//* // level *= 2;
+			
+		    let damagec = basePower; //	Doesn't factor Effectiveness, instead emphasizes the move's power
+						
+			// Toxic & Poison both peirce defense,
+			// The trade off with Toxic is that, while it pierces Weather's defenses, it doesn't access Weather's buffs
+			// Only Normal poisoning stacks damage multipliers
+
+			
+			damagec = damagec * 2;	
+			
+			if (defender.lastMove && defender.lastMove.id === 'sandattack' && defender.moveLastTurnResult === true) {
+				damagec = damagec * 8;
+				damagec = Math.round(damagec / 7);
+			}
+			
+			if (vitals === 'true') {	damagec *= 1;}
+			
+			else if (nuVitals === 'true' || attacker.hp < modal) {
+				damagec = damagec * 14;
+				damagec = Math.round(damagec / 15);
+			}
+			
+			else if (vitals === 'false' && nuVitals === 'false') {
+				damagec = damagec * 3;
+				damagec = Math.round(damagec / 4);
+			}
+			
+			// RNG Variance develops depending on volatile Status and Health
+			
+			if (vitals === 'true')  { // 2 - 1.4
+				
+				if (!move.noDamageVariance && damagec > 1) {
+					damagec *= this.random(180, 256);
+					damagec = Math.floor(damagec / 255);
+				} 				 
+				if (!suppressMessages) this.add('-crit', target);
+				
+				return damagec;
+			}
+			
+			//	Weather influences each critical except when the player has the Toxic status 
+			
+			if ((this.field.isWeather('raindance') && type === 'Water') || (this.field.isWeather('sunnyday') && type === 'Fire') || 
+				(this.field.isWeather('sandstorm') && move.id === 'ancientpower' && attacker.hasType('Rock'))) {
+				damagec = Math.floor(damagec * 1.5);
+				
+			}
+			if ((this.field.isWeather('raindance') && (type === 'Fire' || type === 'Ghost' || move.id === 'solarbeam')) || 
+				(this.field.isWeather('sunnyday') && type === 'Water')) {
+					damagec = Math.floor(damagec / 2);
+			} 
+			if (this.field.isWeather('sandstorm') && move.id === 'solarbeam') damagec = Math.ceil(damagec * 0.8);
+			
+			//Still needs extensive proofing trials, getting here means that defense is peirced alongside weather only
+			
+			if (nuVitals === 'false' && attacker.hp < modal) { // 1.866_ - 1.5866_
+				
+				if (!move.noDamageVariance && damagec > 1) {
+					damagec *= this.random(217, 256);
+					damagec = Math.floor(damagec / 255);
+				}
+				if (!suppressMessages) this.add('-crit', target);
+				
+				return damagec;
+			}
+			
+			// Stat Multipliers stack on Critical Hit
+			
+			let	atkVar;
+			// *// * //
+			if (attacker.getStat(atkType) !== attacker.getStat(atkType, true, noburndrop)) {
+			// *// * //	
+				if (scaleMultPOS > 10000000) {														
+					atkVar = [10000000, 12500000, 13333333, 14222222, 15555555, 16666666, 17777777];
+					let i = 0;
+
+						while (atkVar[i] != scaleMultPOS) {i++;}
+
+					damagec = Math.round(damagec * atkVar[i]); 
+					damagec = Math.floor(damagec / atkVar[0]);
+					
+					
+				} else {
+					
+					// atkVar = [10000000, 8000000, 7500000, 7031250, 6428571, 6000000, 5555555];
+
+					damagec = Math.round(damagec * attacker.getStat(atkType));
+					atkVar = attacker.getStat(atkType, true, noburndrop);
+					damagec = Math.ceil(damagec / atkVar);
+				}	
+			}
+			
+			if (attacker.status === 'psn' || nuVitals === 'true') { // 1.5 - 1.365 || 1.866 - 1.7 
+			
+				if (['poisonpowder', 'poisongas'].includes(defender.lastMove.id)
+					&& defender.lastMove && defender.moveLastTurnResult === true) {
+					damage *= 1; //1.5 || 1.866
+				} else {
+					if (!move.noDamageVariance && damagec > 1) {
+						damagec *= this.random(232, 256);
+						damagec = Math.floor(damagec / 255);
+					}
+					if (!suppressMessages) this.add('-crit', target);
+					
+					return damagec;
+				}
+			}
+			
+			
+			let defVar;
+			// *// * //
+			if (defender.getStat(defType) !== defender.getStat(defType, true, noburndrop)) {
+			// *// * //	
+				let scalar = 10125;
+				let precise = 10000;
+				
+				if (scaleMultPOS > 10000000) { 
+					defVar = [10000000, 12500000, 13333333, 14222222, 15555555, 16666666, 17777777];
+					let i = 0;
+				
+						while (defVar[i] != scaleMultPOS) {i++;}
+					
+					damagec = Math.round(damagec * defVar[0]); 
+					damagec = Math.ceil(damagec / defVar[i]);
+					
+					if (defVar[i] == defVar[6]) {	//needs reduce down from 1.8
+						damagec = Math.round(damagec * precise);
+						damagec = Math.ceil(damagec / scalar);	
+					}
+						
+				} else {
+					
+					// defVar = [10000000, 8000000, 7500000, 7031250, 6428571, 6000000, 5555555];
+
+					defVar = defender.getStat(defType, true, noburndrop);
+					damagec = Math.round(damagec * defVar);
+					damagec = Math.floor(damagec / defender.getStat(defType));
+				}
+			}	
+			
+			// Screens play a vital role counterbalancing the damage range 
+			
+			if (defender.side.sideConditions['reflect'] && atkType === 'atk') {
+				damagec = Math.floor(damagec / 2);
+			}
+			if (defender.side.sideConditions['lightscreen'] && atkType === 'spa') {
+				damagec = Math.floor(damagec / 2);
+			}
+			
+			
+			// /**/ STAB is a WIP; still deciding on how to orient defenses when STAB is in play
+			
+			if (type !== '???' && attacker.hasType(type)) {
+			
+				damagec *= 22; //flat 50 ruleset only
+				damagec *= attacker.getStat(atkType);
+				damagec += Math.floor(damagec / 2); //stab damage multiplier
+				damagec = Math.ceil(damagec / defender.getStat(defType));
+				
+				damagec = this.clampIntRange(Math.round(damagec / 50), 1, 997);
+				
+				this.add('-stab', target);				
+				
+				if (!move.noDamageVariance && damagec > 1) {
+					damagec *= this.random(205, 256);
+					damagec = Math.floor(damagec / 255);
+				}
+				
+				if (!suppressMessages) this.add('-crit', target);
+				if (attacker.boosts[atkType] <= defender.boosts[defType]) noburndrop = true;
+				
+				return damagec;
+			}				
+			
 			if (!suppressMessages) this.add('-crit', target);
 			// Stat level modifications are ignored if they are neutral to or favour the defender.
 			// Reflect and Light Screen defensive boosts are only ignored if stat level modifications were also ignored as a result of that.
 			// @ts-ignore
-			if (attacker.boosts[atkType] <= defender.boosts[defType]) {
-				unboosted = true;
+            if (attacker.boosts[atkType] <= defender.boosts[defType]) {
+				// //* // unboosted = true;
 				noburndrop = true;
 			}
-		}
+			
+			return damagec; 
+	
+		} else {
+		
+		
 		// Get stats now.
 		let attack = attacker.getStat(atkType, unboosted, noburndrop);
 		let defense = defender.getStat(defType, unboosted);
+		
+		// // //!	
+		if ((defender.side.sideConditions['reflect'] && defType === 'def') || (defender.side.sideConditions['lightscreen'] && defType === 'spd')) {
+			defense *= 2;
+		}
+		// // //!
 
 		// Using Beat Up
 		if (move.allies) {
@@ -632,7 +1129,7 @@ let BattleScripts = {
 
 			defense = typeIndexes[attackerLastType] || 1;
 			level = typeIndexes[defenderLastType] || 1;
-			if (isCrit) {
+			if (move.crit) {
 				level *= 2;
 			}
 			this.hint("Gen 2 Present has a glitched damage calculation using the secondary types of the Pokemon for the Attacker's Level and Defender's Defense.", true);
@@ -655,7 +1152,11 @@ let BattleScripts = {
 
 		// Let's go with the calculation now that we have what we need.
 		// We do it step by step just like the game does.
-		let damage = level * 2;
+		
+		//*// let damage = level * 2;
+		
+		let damage = level; 
+		damage *= 2;
 		damage = Math.floor(damage / 5);
 		damage += 2;
 		damage *= basePower;
@@ -663,11 +1164,77 @@ let BattleScripts = {
 		damage = Math.floor(damage / defense);
 		damage = this.clampIntRange(Math.floor(damage / 50), 1, 997);
 		damage += 2;
+		
+	// // // !			
+		let birdMoves = ['steelwing', 'drillpeck', 'peck', 'skyattack', 'wingattack', 'hiddenpowerflying'];
+		let beastMoves = ['scratch', 'bite', 'pound', 'falseswipe', 'furycutter', 'crunch', 'hyperfang', 
+						  'takedown', 'struggle', 'vicegrip', 'bonerush', 'thrash', 'snore', 'leechlife'];
+						  
 
+		if (attacker.hasType('Bird') && birdMoves.includes(move.id)) damage = Math.floor(damage * 1.33);
+		if (attacker.hasType('Beast') && beastMoves.includes(move.id)) damage = Math.ceil(damage * 1.2); 					
+	// // // !	
+		if (move.id === 'whirlwhind' && ['Rock', 'Steel'].includes(target.hasType)) {
+			this.add('-fail', target);
+		}
+//*//*// !
+		if (defender.hasType('Rock') && defender.status === 'frz') {
+			if (!suppressMessages) this.add('-resisted', target);
+			damage *= 6;
+			damage = Math.round(damage / 5);
+		}
+		if (defender.hasType('Fighting') && move.id === 'Lick') {
+			if (!suppressMessages) this.add('-resisted', target);
+			damage = Math.ceil(damage / 2);
+		}
+		
+		if (defender.hasType('Rock') && lastMove.id === 'rockthrow' && move.lastTurnResult && move.lastTurnResult === true) {
+			let actor = this.willAct();
+			if (actor.choice === move && this.willMove(attacker) && move.type === 'Flying' && attacker.hasType('Flying')) {
+				damage *= 6;
+				damage = Math.round(damage / 9);
+			} 
+		}
+		
+		
+		if (defender.hasType('Beast') && defender.status === 'psn' && move.type === 'Poison' && attacker.hasType('Poison')) {
+			if (!suppressMessages) this.add('-supereffective', target);
+			damage *= 5;
+			damage = Math.floor(damage / 4);
+		}
+		
+		if (type === 'Fighting' && defender.status === 'frz') {
+			if (!suppressMessages) this.add('-supereffective', target);
+			damage *= 5;
+			damage = Math.round(damage / 4);
+		}
+		if (attacker.hasType('Grass') && move.id === 'gigadrain' && defender.hasType('Bug')) {
+			if (!suppressMessages) this.add('-supereffective', target);
+			damage *= 16;
+			damage = Math.round(damage / 9);
+		}
+		
+		
+		if (defender.hasType('Fighting') && move.id === 'slam') move.type = 'Fighting';
+			
+		if (defender.hasType('Steel') && move.id === 'vicegrip') move.type = '???';
+		
+		let runThru = Math.round(attacker.maxhp * 0.87);
+		if (move.id === 'hornattack' && attacker.hp !== attacker.maxhp && attacker.hp >= runThru) { 
+			damage = Math.round(damage * 1.7);
+		} else if (move.id === 'hornattack' && attacker.hp === attacker.maxhp) { damage *= 2;}
+		
+		let theFury = Math.round(attacker.maxhp * 0.25);
+		if (['furyswipes', 'furyattack'].includes(move.id) && attacker.hp < theFury) {
+			damage *= 28;
+			damage = Math.floor(damage / 25);
+		}
+//*//*// !
+		
 		// Weather modifiers
 		if ((this.field.isWeather('raindance') && type === 'Water') || (this.field.isWeather('sunnyday') && type === 'Fire')) {
 			damage = Math.floor(damage * 1.5);
-		} else if ((this.field.isWeather('raindance') && (type === 'Fire' || move.id === 'solarbeam')) || (this.field.isWeather('sunnyday') && type === 'Water')) {
+		} else if ((this.field.isWeather('raindance') && (type === 'Fire' || type === 'Ghost' || move.id === 'solarbeam')) || (this.field.isWeather('sunnyday') && type === 'Water')) {
 			damage = Math.floor(damage / 2);
 		}
 
@@ -695,11 +1262,11 @@ let BattleScripts = {
 			}
 		}
 
-		// Apply random factor is damage is greater than 1, except for Flail and Reversal
-		if (!move.noDamageVariance && damage > 1) {
-			damage *= this.random(217, 256);
-			damage = Math.floor(damage / 255);
-		}
+		//* // Apply random factor is damage is greater than 1, except for Flail and Reversal
+		//* // if (!move.noDamageVariance && damage > 1) {
+			//* // damage *= this.random(217, 256);
+			//* // damage = Math.floor(damage / 255);
+		//* // }
 
 		// If damage is less than 1, we return 1
 		if (basePower && !Math.floor(damage)) {
@@ -708,6 +1275,7 @@ let BattleScripts = {
 
 		// We are done, this is the final damage
 		return damage;
+		}
 	},
 };
 

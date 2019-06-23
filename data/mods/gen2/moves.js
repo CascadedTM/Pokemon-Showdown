@@ -34,11 +34,12 @@ let BattleMovedex = {
 	},
 	bellydrum: {
 		inherit: true,
+		
 		onHit(target) {
 			if (target.boosts.atk >= 6) {
 				return false;
 			}
-			if (target.hp <= target.maxhp / 2) {
+			if (target.hp <= target.maxhp / 2 && target.boosts.atk < 2) {
 				this.boost({atk: 2}, null, null, this.getEffect('bellydrum2'));
 				return false;
 			}
@@ -46,6 +47,7 @@ let BattleMovedex = {
 			let originalStage = target.boosts.atk;
 			let currentStage = originalStage;
 			let boosts = 0;
+			// let boostings = 0;
 			let loopStage = 0;
 			while (currentStage < 6) {
 				loopStage = currentStage;
@@ -60,8 +62,13 @@ let BattleMovedex = {
 				break;
 			}
 			boosts = target.boosts.atk - originalStage;
+			// boostings = target.boosts.atk - originalStage;
+		// // // !
 			target.boosts.atk = originalStage;
+		
 			this.boost({atk: boosts});
+		// // // !
+			// this.boost({atk: boostings, def: -1});
 		},
 	},
 	bide: {
@@ -77,6 +84,11 @@ let BattleMovedex = {
 			onStart(pokemon) {
 				this.effectData.totalDamage = 0;
 				this.add('-start', pokemon, 'move: Bide');
+			// // // !
+				if (pokemon.hurtThisTurn === true) {
+				this.boost({accuracy: 1});
+				}
+			// // // !
 			},
 			onDamagePriority: -101,
 			onDamage(damage, target, source, move) {
@@ -107,7 +119,7 @@ let BattleMovedex = {
 					/** @type {ActiveMove} */
 					// @ts-ignore
 					let moveData = {
-						id: /** @type {ID} */('bide'),
+						id: 'bide',
 						name: "Bide",
 						accuracy: 100,
 						damage: this.effectData.totalDamage * 2,
@@ -566,10 +578,15 @@ let BattleMovedex = {
 				}
 				this.add('-start', pokemon, 'Nightmare');
 			},
-			onAfterMoveSelfPriority: 1,
-			onAfterMoveSelf(pokemon) {
-				if (pokemon.status === 'slp') this.damage(pokemon.maxhp / 4);
+		// // // !
+			onBeforeTurn(pokemon) {
+				if (pokemon.status === 'slp') this.damage(pokemon.maxhp / 10);
 			},
+		// // // !
+			 // * //onAfterMoveSelfPriority: 1,
+			 // * //onAfterMoveSelf(pokemon) {
+			 // * //	if (pokemon.status === 'slp') this.damage(pokemon.maxhp / 4);
+			 // * //},
 		},
 	},
 	outrage: {
@@ -683,16 +700,13 @@ let BattleMovedex = {
 			this.add('-fail', pokemon);
 			return null;
 		},
-		onHit(target, source, move) {
-			if (target.status !== 'slp') {
-				if (!target.setStatus('slp', source, move)) return;
-			} else {
-				this.add('-status', target, 'slp', '[from] move: Rest');
-			}
+		onHit(target) {
+			if (!target.setStatus('slp') && target.status !== 'slp') return false;
 			target.statusData.time = 3;
 			target.statusData.startTime = 3;
 			target.statusData.source = target;
 			this.heal(target.maxhp);
+			this.add('-status', target, 'slp', '[from] move: Rest');
 		},
 		secondary: null,
 	},
@@ -1013,7 +1027,7 @@ let BattleMovedex = {
 		inherit: true,
 		desc: "Hits one to three times, at random. Power increases to 20 for the second hit and 30 for the third.",
 		shortDesc: "Hits 1-3 times. Power rises with each hit.",
-		multiaccuracy: false,
+		// // multiaccuracy: false,
 		multihit: [1, 3],
 	},
 	twineedle: {
