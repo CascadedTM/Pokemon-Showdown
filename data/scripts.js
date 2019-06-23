@@ -141,7 +141,7 @@ let BattleScripts = {
 	},
 	useMoveInner(moveOrMoveName, pokemon, target, sourceEffect, zMove) {
 		if (!sourceEffect && this.effect.id) sourceEffect = this.effect;
-		if (sourceEffect && ['instruct', 'custapberry'].includes(sourceEffect.id)) sourceEffect = null;
+		if (sourceEffect && sourceEffect.id === 'instruct') sourceEffect = null;
 
 		let move = this.getActiveMove(moveOrMoveName);
 		if (move.id === 'weatherball' && zMove) {
@@ -203,6 +203,7 @@ let BattleScripts = {
 		if (!target) {
 			this.attrLastMove('[notarget]');
 			this.add(this.gen >= 5 ? '-fail' : '-notarget', pokemon);
+			if (move.target === 'normal') pokemon.isStaleCon = 0;
 			return false;
 		}
 
@@ -233,7 +234,7 @@ let BattleScripts = {
 			move.ignoreImmunity = (move.category === 'Status');
 		}
 
-		if (this.gen !== 4 && move.selfdestruct === 'always') {
+		if (move.selfdestruct === 'always') {
 			this.faint(pokemon, pokemon, move);
 		}
 
@@ -244,14 +245,6 @@ let BattleScripts = {
 			if (damage === this.NOT_FAIL) pokemon.moveThisTurnResult = null;
 			if (damage || damage === 0 || damage === undefined) moveResult = true;
 		} else {
-			if (!targets.length) {
-				this.attrLastMove('[notarget]');
-				this.add(this.gen >= 5 ? '-fail' : '-notarget', pokemon);
-				return false;
-			}
-			if (this.gen === 4 && move.selfdestruct === 'always') {
-				this.faint(pokemon, pokemon, move);
-			}
 			moveResult = this.trySpreadMoveHit(targets, pokemon, move);
 		}
 		if (move.selfBoost && moveResult) this.moveHit(pokemon, pokemon, move, move.selfBoost, false, true);
@@ -272,6 +265,11 @@ let BattleScripts = {
 		return true;
 	},
 	trySpreadMoveHit(targets, pokemon, move) {
+		if (!targets.length) {
+			this.attrLastMove('[notarget]');
+			this.add(this.gen >= 5 ? '-fail' : '-notarget', pokemon);
+			return false;
+		}
 		if (targets.length > 1) move.spreadHit = true;
 
 		/** @type {((targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => (number | boolean | "" | undefined)[] | undefined)[]} */
@@ -313,6 +311,7 @@ let BattleScripts = {
 		}
 
 		this.setActiveMove(move, pokemon, targets[0]);
+		move.zBrokeProtect = false;
 
 		let hitResult = this.singleEvent('PrepareHit', move, {}, targets[0], pokemon, move);
 		if (!hitResult) {
@@ -349,8 +348,7 @@ let BattleScripts = {
 
 		const moveResult = !!targets.length;
 		if (!moveResult && !atLeastOneFailure) pokemon.moveThisTurnResult = null;
-		const hitSlot = targets.map(pokemon => `${pokemon}`.slice(0, 3));
-		if (move.spreadHit) this.attrLastMove('[spread] ' + hitSlot.join(','));
+		if (move.spreadHit) this.attrLastMove('[spread] ' + targets.join(','));
 		return moveResult;
 	},
 	hitStepTryImmunityEvent(targets, pokemon, move) {
@@ -550,6 +548,7 @@ let BattleScripts = {
 	},
 	tryMoveHit(target, pokemon, move) {
 		this.setActiveMove(move, pokemon, target);
+		move.zBrokeProtect = false;
 
 		let hitResult = this.singleEvent('PrepareHit', move, {}, target, pokemon, move);
 		if (!hitResult) {
@@ -610,7 +609,7 @@ let BattleScripts = {
 		let hit;
 		for (hit = 1; hit <= targetHits; hit++) {
 			if (damage.includes(false)) break;
-			if (hit > 1 && pokemon.status === 'slp' && !isSleepUsable) break;
+			if (pokemon.status === 'slp' && !isSleepUsable) break;
 			if (targets.some(target => target && !target.hp)) break;
 			move.hit = hit;
 			targetsCopy = targets.slice(0);
@@ -844,8 +843,8 @@ let BattleScripts = {
 		return damage;
 	},
 	runMoveEffects(damage, targets, pokemon, move, moveData, isSecondary, isSelf) {
-		/**@type {?boolean | number | undefined} */
-		let didAnything = damage.reduce(this.combineResults);
+		/**@type {?boolean | number | null | undefined} */
+		let didAnything = undefined;
 		for (const [i, target] of targets.entries()) {
 			if (target === false) continue;
 			let hitResult;
@@ -963,7 +962,7 @@ let BattleScripts = {
 			}
 			this.debug('move failed because it did nothing');
 		} else if (move.selfSwitch && pokemon.hp) {
-			pokemon.switchFlag = move.id;
+			pokemon.switchFlag = move.fullname;
 		}
 
 		return damage;
@@ -1101,16 +1100,12 @@ let BattleScripts = {
 		if (!item.zMove) return;
 		if (item.zMoveUser && !item.zMoveUser.includes(pokemon.template.species)) return;
 		let atLeastOne = false;
-		let mustStruggle = true;
 		/**@type {AnyObject?[]} */
 		let zMoves = [];
 		for (const moveSlot of pokemon.moveSlots) {
 			if (moveSlot.pp <= 0) {
 				zMoves.push(null);
 				continue;
-			}
-			if (!moveSlot.disabled) {
-				mustStruggle = false;
 			}
 			let move = this.getMove(moveSlot.move);
 			let zMoveName = this.getZMove(move, pokemon, true) || '';
@@ -1123,13 +1118,13 @@ let BattleScripts = {
 			}
 			if (zMoveName) atLeastOne = true;
 		}
-		if (atLeastOne && !mustStruggle) return zMoves;
+		if (atLeastOne) return zMoves;
 	},
 
 	canMegaEvo(pokemon) {
 		let altForme = pokemon.baseTemplate.otherFormes && this.getTemplate(pokemon.baseTemplate.otherFormes[0]);
 		let item = pokemon.getItem();
-		if (altForme && altForme.isMega && altForme.requiredMove && pokemon.baseMoves.includes(toID(altForme.requiredMove)) && !item.zMove) return altForme.species;
+		if (altForme && altForme.isMega && altForme.requiredMove && pokemon.baseMoves.includes(toId(altForme.requiredMove)) && !item.zMove) return altForme.species;
 		if (item.megaEvolves !== pokemon.baseTemplate.baseSpecies || item.megaStone === pokemon.species) {
 			return null;
 		}

@@ -20,7 +20,7 @@ Ratings and how they work:
 
  2: Situationally useful
 	  An ability that can be useful in certain situations.
-	ex. Clear Body, Static
+	ex. Blaze, Insomnia
 
  3: Useful
 	  An ability that is generally useful.
@@ -131,7 +131,7 @@ let BattleAbilities = {
 		shortDesc: "If this Pokemon (not its substitute) takes a critical hit, its Attack is raised 12 stages.",
 		onHit(target, source, move) {
 			if (!target.hp) return;
-			if (move && move.effectType === 'Move' && target.getMoveHitData(move).crit) {
+			if (move && move.effectType === 'Move' && move.crit) {
 				target.setBoost({atk: 6});
 				this.add('-setboost', target, 'atk', 12, '[from] ability: Anger Point');
 			}
@@ -142,15 +142,14 @@ let BattleAbilities = {
 		num: 83,
 	},
 	"anticipation": {
-		desc: "On switch-in, this Pokemon is alerted if any opposing Pokemon has an attack that is super effective on this Pokemon, or an OHKO move. Counter, Metal Burst, and Mirror Coat count as attacking moves of their respective types, Hidden Power counts as its determined type, and Judgment, Multi-Attack, Natural Gift, Revelation Dance, Techno Blast, and Weather Ball are considered Normal-type moves.",
+		desc: "On switch-in, this Pokemon is alerted if any opposing Pokemon has an attack that is super effective on this Pokemon, or an OHKO move. Counter, Metal Burst, and Mirror Coat count as attacking moves of their respective types, while Hidden Power, Judgment, Natural Gift, Techno Blast, and Weather Ball are considered Normal-type moves.",
 		shortDesc: "On switch-in, this Pokemon shudders if any foe has a supereffective or OHKO move.",
 		onStart(pokemon) {
 			for (const target of pokemon.side.foe.active) {
 				if (!target || target.fainted) continue;
 				for (const moveSlot of target.moveSlots) {
-					const move = this.getMove(moveSlot.move);
-					const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
-					if (move.category !== 'Status' && (this.getImmunity(moveType, pokemon) && this.getEffectiveness(moveType, pokemon) > 0 || move.ohko)) {
+					let move = this.getMove(moveSlot.move);
+					if (move.category !== 'Status' && (this.getImmunity(move.type, pokemon) && this.getEffectiveness(move.type, pokemon) > 0 || move.ohko)) {
 						this.add('-ability', pokemon, 'Anticipation');
 						return;
 					}
@@ -235,7 +234,7 @@ let BattleAbilities = {
 	},
 	"battery": {
 		shortDesc: "This Pokemon's allies have the power of their special attacks multiplied by 1.3.",
-		onAllyBasePowerPriority: 8,
+		onBasePowerPriority: 8,
 		onAllyBasePower(basePower, attacker, defender, move) {
 			if (attacker !== this.effectData.target && move.category === 'Special') {
 				this.debug('Battery boost');
@@ -345,7 +344,7 @@ let BattleAbilities = {
 		},
 		id: "blaze",
 		name: "Blaze",
-		rating: 2.5,
+		rating: 2,
 		num: 66,
 	},
 	"bulletproof": {
@@ -790,7 +789,7 @@ let BattleAbilities = {
 				return null;
 			}
 		},
-		onFoeBasePowerPriority: 7,
+		onBasePowerPriority: 7,
 		onFoeBasePower(basePower, attacker, defender, move) {
 			if (this.effectData.target !== defender) return;
 			if (move.type === 'Fire') {
@@ -893,7 +892,7 @@ let BattleAbilities = {
 	"filter": {
 		shortDesc: "This Pokemon receives 3/4 damage from supereffective attacks.",
 		onSourceModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).typeMod > 0) {
+			if (move.typeMod > 0) {
 				this.debug('Filter neutralize');
 				return this.chainModify(0.75);
 			}
@@ -992,7 +991,7 @@ let BattleAbilities = {
 				}
 			}
 		},
-		onAllyModifyAtkPriority: 3,
+		onModifyAtkPriority: 3,
 		onAllyModifyAtk(atk) {
 			if (this.effectData.target.baseTemplate.baseSpecies !== 'Cherrim') return;
 			if (this.field.isWeather(['sunnyday', 'desolateland'])) {
@@ -1314,7 +1313,7 @@ let BattleAbilities = {
 	"heatproof": {
 		desc: "The power of Fire-type attacks against this Pokemon is halved, and burn damage taken is halved.",
 		shortDesc: "The power of Fire-type attacks against this Pokemon is halved; burn damage halved.",
-		onSourceBasePowerPriority: 7,
+		onBasePowerPriority: 7,
 		onSourceBasePower(basePower, attacker, defender, move) {
 			if (move.type === 'Fire') {
 				return this.chainModify(0.5);
@@ -1374,7 +1373,7 @@ let BattleAbilities = {
 		},
 		id: "hustle",
 		name: "Hustle",
-		rating: 3.5,
+		rating: 3,
 		num: 55,
 	},
 	"hydration": {
@@ -2052,7 +2051,7 @@ let BattleAbilities = {
 		onBasePower(basePower, pokemon, target, move) {
 			if (move.multihitType === 'parentalbond' && move.hit > 1) return this.chainModify(0.25);
 		},
-		rating: 2.5,
+		rating: 2,
 		num: 152,
 	},
 	"naturalcure": {
@@ -2132,7 +2131,7 @@ let BattleAbilities = {
 
 			// only reset .showCure if it's false
 			// (once you know a Pokemon has Natural Cure, its cures are always known)
-			if (!pokemon.showCure) pokemon.showCure = undefined;
+			if (!pokemon.showCure) delete pokemon.showCure;
 		},
 		id: "naturalcure",
 		name: "Natural Cure",
@@ -2142,7 +2141,7 @@ let BattleAbilities = {
 	"neuroforce": {
 		shortDesc: "This Pokemon's attacks that are super effective against the target do 1.25x damage.",
 		onModifyDamage(damage, source, target, move) {
-			if (move && target.getMoveHitData(move).typeMod > 0) {
+			if (move && move.typeMod > 0) {
 				return this.chainModify([0x1400, 0x1000]);
 			}
 		},
@@ -2248,7 +2247,7 @@ let BattleAbilities = {
 		},
 		id: "overgrow",
 		name: "Overgrow",
-		rating: 2.5,
+		rating: 2,
 		num: 65,
 	},
 	"owntempo": {
@@ -2343,7 +2342,7 @@ let BattleAbilities = {
 		},
 		id: "pickpocket",
 		name: "Pickpocket",
-		rating: 1.5,
+		rating: 1,
 		num: 124,
 	},
 	"pixilate": {
@@ -2492,7 +2491,7 @@ let BattleAbilities = {
 		},
 		id: "pressure",
 		name: "Pressure",
-		rating: 2.5,
+		rating: 2,
 		num: 46,
 	},
 	"primordialsea": {
@@ -2524,7 +2523,7 @@ let BattleAbilities = {
 		desc: "This Pokemon receives 3/4 damage from supereffective attacks. Moongeist Beam, Sunsteel Strike, and the Mold Breaker, Teravolt, and Turboblaze Abilities cannot ignore this Ability.",
 		shortDesc: "This Pokemon receives 3/4 damage from supereffective attacks.",
 		onSourceModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).typeMod > 0) {
+			if (move.typeMod > 0) {
 				this.debug('Prism Armor neutralize');
 				return this.chainModify(0.75);
 			}
@@ -3064,7 +3063,7 @@ let BattleAbilities = {
 		},
 		id: "skilllink",
 		name: "Skill Link",
-		rating: 3.5,
+		rating: 4,
 		num: 92,
 	},
 	"slowstart": {
@@ -3112,7 +3111,7 @@ let BattleAbilities = {
 	"sniper": {
 		shortDesc: "If this Pokemon strikes with a critical hit, the damage is multiplied by 1.5.",
 		onModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).crit) {
+			if (move.crit) {
 				this.debug('Sniper boost');
 				return this.chainModify(1.5);
 			}
@@ -3172,7 +3171,7 @@ let BattleAbilities = {
 	"solidrock": {
 		shortDesc: "This Pokemon receives 3/4 damage from supereffective attacks.",
 		onSourceModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).typeMod > 0) {
+			if (move.typeMod > 0) {
 				this.debug('Solid Rock neutralize');
 				return this.chainModify(0.75);
 			}
@@ -3479,7 +3478,7 @@ let BattleAbilities = {
 		},
 		id: "swarm",
 		name: "Swarm",
-		rating: 2.5,
+		rating: 2,
 		num: 68,
 	},
 	"sweetveil": {
@@ -3623,14 +3622,14 @@ let BattleAbilities = {
 	"thickfat": {
 		desc: "If a Pokemon uses a Fire- or Ice-type attack against this Pokemon, that Pokemon's attacking stat is halved when calculating the damage to this Pokemon.",
 		shortDesc: "Fire/Ice-type moves against this Pokemon deal damage with a halved attacking stat.",
-		onSourceModifyAtkPriority: 6,
+		onModifyAtkPriority: 6,
 		onSourceModifyAtk(atk, attacker, defender, move) {
 			if (move.type === 'Ice' || move.type === 'Fire') {
 				this.debug('Thick Fat weaken');
 				return this.chainModify(0.5);
 			}
 		},
-		onSourceModifySpAPriority: 5,
+		onModifySpAPriority: 5,
 		onSourceModifySpA(atk, attacker, defender, move) {
 			if (move.type === 'Ice' || move.type === 'Fire') {
 				this.debug('Thick Fat weaken');
@@ -3645,7 +3644,7 @@ let BattleAbilities = {
 	"tintedlens": {
 		shortDesc: "This Pokemon's attacks that are not very effective on a target deal double damage.",
 		onModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).typeMod < 0) {
+			if (move.typeMod < 0) {
 				this.debug('Tinted Lens boost');
 				return this.chainModify(2);
 			}
@@ -3674,7 +3673,7 @@ let BattleAbilities = {
 		},
 		id: "torrent",
 		name: "Torrent",
-		rating: 2.5,
+		rating: 2,
 		num: 67,
 	},
 	"toxicboost": {
@@ -4030,7 +4029,7 @@ let BattleAbilities = {
 		},
 		id: "wimpout",
 		name: "Wimp Out",
-		rating: 1.5,
+		rating: 2,
 		num: 193,
 	},
 	"wonderguard": {

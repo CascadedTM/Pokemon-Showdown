@@ -33,7 +33,7 @@ let BattlePokedex = {
 	venusaur: {
 		num: 3,
 		species: "Venusaur",
-		types: ["Grass", "Poison"],
+		types: ["Dragon", "Poison"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 80, atk: 82, def: 83, spa: 100, spd: 100, spe: 80},
 		abilities: {0: "Overgrow", H: "Chlorophyll"},
@@ -76,7 +76,7 @@ let BattlePokedex = {
 	charmeleon: {
 		num: 5,
 		species: "Charmeleon",
-		types: ["Fire"],
+		types: ["Fire", "Beast"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 58, atk: 64, def: 58, spa: 80, spd: 65, spe: 80},
 		abilities: {0: "Blaze", H: "Solar Power"},
@@ -91,7 +91,7 @@ let BattlePokedex = {
 	charizard: {
 		num: 6,
 		species: "Charizard",
-		types: ["Fire", "Flying"],
+		types: ["Fire", "Dragon"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 78, atk: 84, def: 78, spa: 109, spd: 85, spe: 100},
 		abilities: {0: "Blaze", H: "Solar Power"},
@@ -233,7 +233,7 @@ let BattlePokedex = {
 	weedle: {
 		num: 13,
 		species: "Weedle",
-		types: ["Bug", "Poison"],
+		types: ["Bug", "Ground"],
 		baseStats: {hp: 40, atk: 35, def: 30, spa: 20, spd: 20, spe: 50},
 		abilities: {0: "Shield Dust", H: "Run Away"},
 		heightm: 0.3,
@@ -299,7 +299,7 @@ let BattlePokedex = {
 	pidgeotto: {
 		num: 17,
 		species: "Pidgeotto",
-		types: ["Normal", "Flying"],
+		types: ["Bird", "Flying"],
 		baseStats: {hp: 63, atk: 60, def: 55, spa: 50, spd: 50, spe: 71},
 		abilities: {0: "Keen Eye", 1: "Tangled Feet", H: "Big Pecks"},
 		heightm: 1.1,
@@ -313,7 +313,7 @@ let BattlePokedex = {
 	pidgeot: {
 		num: 18,
 		species: "Pidgeot",
-		types: ["Normal", "Flying"],
+		types: ["Flying"],
 		baseStats: {hp: 83, atk: 80, def: 75, spa: 70, spd: 70, spe: 101},
 		abilities: {0: "Keen Eye", 1: "Tangled Feet", H: "Big Pecks"},
 		heightm: 1.5,
@@ -369,7 +369,7 @@ let BattlePokedex = {
 	raticate: {
 		num: 20,
 		species: "Raticate",
-		types: ["Normal"],
+		types: ["Normal", "Dark"],
 		baseStats: {hp: 55, atk: 81, def: 60, spa: 50, spd: 70, spe: 97},
 		abilities: {0: "Run Away", 1: "Guts", H: "Hustle"},
 		heightm: 0.7,
@@ -413,7 +413,7 @@ let BattlePokedex = {
 	spearow: {
 		num: 21,
 		species: "Spearow",
-		types: ["Normal", "Flying"],
+		types: ["Bird", "Flying"],
 		baseStats: {hp: 40, atk: 60, def: 30, spa: 31, spd: 31, spe: 70},
 		abilities: {0: "Keen Eye", H: "Sniper"},
 		heightm: 0.3,
@@ -425,7 +425,7 @@ let BattlePokedex = {
 	fearow: {
 		num: 22,
 		species: "Fearow",
-		types: ["Normal", "Flying"],
+		types: ["Bird", "Flying"],
 		baseStats: {hp: 65, atk: 90, def: 65, spa: 61, spd: 61, spe: 100},
 		abilities: {0: "Keen Eye", H: "Sniper"},
 		heightm: 1.2,
@@ -687,7 +687,7 @@ let BattlePokedex = {
 	raichu: {
 		num: 26,
 		species: "Raichu",
-		types: ["Electric"],
+		types: ["Electric", "Fairy"],
 		baseStats: {hp: 60, atk: 90, def: 55, spa: 90, spd: 80, spe: 110},
 		abilities: {0: "Static", H: "Lightning Rod"},
 		heightm: 0.8,
@@ -747,7 +747,7 @@ let BattlePokedex = {
 	sandslash: {
 		num: 28,
 		species: "Sandslash",
-		types: ["Ground"],
+		types: ["Ground", "Steel"],
 		baseStats: {hp: 75, atk: 100, def: 110, spa: 45, spd: 55, spe: 65},
 		abilities: {0: "Sand Veil", H: "Sand Rush"},
 		heightm: 1,
@@ -806,7 +806,7 @@ let BattlePokedex = {
 	nidoqueen: {
 		num: 31,
 		species: "Nidoqueen",
-		types: ["Poison", "Ground"],
+		types: ["Ground", "Poison"],
 		gender: "F",
 		baseStats: {hp: 90, atk: 92, def: 87, spa: 75, spd: 85, spe: 76},
 		abilities: {0: "Poison Point", 1: "Rivalry", H: "Sheer Force"},
@@ -834,7 +834,7 @@ let BattlePokedex = {
 	nidorino: {
 		num: 33,
 		species: "Nidorino",
-		types: ["Poison"],
+		types: ["Beast", "Poison"],
 		gender: "M",
 		baseStats: {hp: 61, atk: 72, def: 57, spa: 55, spd: 55, spe: 65},
 		abilities: {0: "Poison Point", 1: "Rivalry", H: "Hustle"},
@@ -849,7 +849,7 @@ let BattlePokedex = {
 	nidoking: {
 		num: 34,
 		species: "Nidoking",
-		types: ["Poison", "Ground"],
+		types: ["Ground", "Poison"],
 		gender: "M",
 		baseStats: {hp: 81, atk: 102, def: 77, spa: 85, spd: 75, spe: 85},
 		abilities: {0: "Poison Point", 1: "Rivalry", H: "Sheer Force"},
@@ -879,7 +879,7 @@ let BattlePokedex = {
 	clefable: {
 		num: 36,
 		species: "Clefable",
-		types: ["Fairy"],
+		types: ["Fairy", "Ghost"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 95, atk: 70, def: 73, spa: 95, spd: 90, spe: 60},
 		abilities: {0: "Cute Charm", 1: "Magic Guard", H: "Unaware"},
@@ -924,7 +924,7 @@ let BattlePokedex = {
 	ninetales: {
 		num: 38,
 		species: "Ninetales",
-		types: ["Fire"],
+		types: ["Fire", "Psychic"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 73, atk: 76, def: 75, spa: 81, spd: 100, spe: 100},
 		abilities: {0: "Flash Fire", H: "Drought"},
@@ -973,7 +973,7 @@ let BattlePokedex = {
 	wigglytuff: {
 		num: 40,
 		species: "Wigglytuff",
-		types: ["Normal", "Fairy"],
+		types: ["Fighting", "Fairy"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 140, atk: 70, def: 45, spa: 85, spd: 50, spe: 45},
 		abilities: {0: "Cute Charm", 1: "Competitive", H: "Frisk"},
@@ -1000,7 +1000,7 @@ let BattlePokedex = {
 	golbat: {
 		num: 42,
 		species: "Golbat",
-		types: ["Poison", "Flying"],
+		types: ["Poison", "Psychic"],
 		baseStats: {hp: 75, atk: 80, def: 70, spa: 65, spd: 75, spe: 90},
 		abilities: {0: "Inner Focus", H: "Infiltrator"},
 		heightm: 1.6,
@@ -1014,7 +1014,7 @@ let BattlePokedex = {
 	oddish: {
 		num: 43,
 		species: "Oddish",
-		types: ["Grass", "Poison"],
+		types: ["Grass"],
 		baseStats: {hp: 45, atk: 50, def: 55, spa: 75, spd: 65, spe: 30},
 		abilities: {0: "Chlorophyll", H: "Run Away"},
 		heightm: 0.5,
@@ -1026,7 +1026,7 @@ let BattlePokedex = {
 	gloom: {
 		num: 44,
 		species: "Gloom",
-		types: ["Grass", "Poison"],
+		types: ["Poison", "Grass"],
 		baseStats: {hp: 60, atk: 65, def: 70, spa: 85, spd: 75, spe: 40},
 		abilities: {0: "Chlorophyll", H: "Stench"},
 		heightm: 0.8,
@@ -1040,7 +1040,7 @@ let BattlePokedex = {
 	vileplume: {
 		num: 45,
 		species: "Vileplume",
-		types: ["Grass", "Poison"],
+		types: ["Dark", "Grass"],
 		baseStats: {hp: 75, atk: 80, def: 85, spa: 110, spd: 90, spe: 50},
 		abilities: {0: "Chlorophyll", H: "Effect Spore"},
 		heightm: 1.2,
@@ -1079,7 +1079,7 @@ let BattlePokedex = {
 	venonat: {
 		num: 48,
 		species: "Venonat",
-		types: ["Bug", "Poison"],
+		types: ["Bug", "Psychic"],
 		baseStats: {hp: 60, atk: 55, def: 50, spa: 40, spd: 55, spe: 45},
 		abilities: {0: "Compound Eyes", 1: "Tinted Lens", H: "Run Away"},
 		heightm: 1,
@@ -1091,7 +1091,7 @@ let BattlePokedex = {
 	venomoth: {
 		num: 49,
 		species: "Venomoth",
-		types: ["Bug", "Poison"],
+		types: ["Bug", "Dark"],
 		baseStats: {hp: 70, atk: 65, def: 60, spa: 90, spd: 75, spe: 90},
 		abilities: {0: "Shield Dust", 1: "Tinted Lens", H: "Wonder Skin"},
 		heightm: 1.5,
@@ -1132,7 +1132,7 @@ let BattlePokedex = {
 	dugtrio: {
 		num: 51,
 		species: "Dugtrio",
-		types: ["Ground"],
+		types: ["Ground", "Dark"],
 		baseStats: {hp: 35, atk: 100, def: 50, spa: 50, spd: 70, spe: 120},
 		abilities: {0: "Sand Veil", 1: "Arena Trap", H: "Sand Force"},
 		heightm: 0.7,
@@ -1190,7 +1190,7 @@ let BattlePokedex = {
 	persian: {
 		num: 53,
 		species: "Persian",
-		types: ["Normal"],
+		types: ["Normal", "Beast"],
 		baseStats: {hp: 65, atk: 70, def: 60, spa: 65, spd: 65, spe: 115},
 		abilities: {0: "Limber", 1: "Technician", H: "Unnerve"},
 		heightm: 1,
@@ -1232,7 +1232,7 @@ let BattlePokedex = {
 	golduck: {
 		num: 55,
 		species: "Golduck",
-		types: ["Water"],
+		types: ["Water", "Bird"],
 		baseStats: {hp: 80, atk: 82, def: 78, spa: 95, spd: 80, spe: 85},
 		abilities: {0: "Damp", 1: "Cloud Nine", H: "Swift Swim"},
 		heightm: 1.7,
@@ -1257,7 +1257,7 @@ let BattlePokedex = {
 	primeape: {
 		num: 57,
 		species: "Primeape",
-		types: ["Fighting"],
+		types: ["Fighting", "Ground"],
 		baseStats: {hp: 65, atk: 105, def: 60, spa: 60, spd: 70, spe: 95},
 		abilities: {0: "Vital Spirit", 1: "Anger Point", H: "Defiant"},
 		heightm: 1,
@@ -1324,7 +1324,7 @@ let BattlePokedex = {
 	poliwrath: {
 		num: 62,
 		species: "Poliwrath",
-		types: ["Water", "Fighting"],
+		types: ["Fighting", "Water"],
 		baseStats: {hp: 90, atk: 95, def: 95, spa: 70, spd: 90, spe: 70},
 		abilities: {0: "Water Absorb", 1: "Damp", H: "Swift Swim"},
 		heightm: 1.3,
@@ -1366,7 +1366,7 @@ let BattlePokedex = {
 	alakazam: {
 		num: 65,
 		species: "Alakazam",
-		types: ["Psychic"],
+		types: ["Psychic", "Dark"],
 		genderRatio: {M: 0.75, F: 0.25},
 		baseStats: {hp: 55, atk: 50, def: 45, spa: 135, spd: 95, spe: 120},
 		abilities: {0: "Synchronize", 1: "Inner Focus", H: "Magic Guard"},
@@ -1424,7 +1424,7 @@ let BattlePokedex = {
 	machamp: {
 		num: 68,
 		species: "Machamp",
-		types: ["Fighting"],
+		types: ["Fighting", "Electric"],
 		genderRatio: {M: 0.75, F: 0.25},
 		baseStats: {hp: 90, atk: 130, def: 80, spa: 65, spd: 85, spe: 55},
 		abilities: {0: "Guts", 1: "No Guard", H: "Steadfast"},
@@ -1438,7 +1438,7 @@ let BattlePokedex = {
 	bellsprout: {
 		num: 69,
 		species: "Bellsprout",
-		types: ["Grass", "Poison"],
+		types: ["Grass", "Ground"],
 		baseStats: {hp: 50, atk: 75, def: 35, spa: 70, spd: 30, spe: 40},
 		abilities: {0: "Chlorophyll", H: "Gluttony"},
 		heightm: 0.7,
@@ -1563,7 +1563,7 @@ let BattlePokedex = {
 	golem: {
 		num: 76,
 		species: "Golem",
-		types: ["Rock", "Ground"],
+		types: ["Rock", "Electric"],
 		baseStats: {hp: 80, atk: 120, def: 130, spa: 55, spd: 65, spe: 45},
 		abilities: {0: "Rock Head", 1: "Sturdy", H: "Sand Veil"},
 		heightm: 1.4,
@@ -1605,7 +1605,7 @@ let BattlePokedex = {
 	rapidash: {
 		num: 78,
 		species: "Rapidash",
-		types: ["Fire"],
+		types: ["Fire", "Electric"],
 		baseStats: {hp: 65, atk: 100, def: 70, spa: 80, spd: 80, spe: 105},
 		abilities: {0: "Run Away", 1: "Flash Fire", H: "Flame Body"},
 		heightm: 1.7,
@@ -1630,7 +1630,7 @@ let BattlePokedex = {
 	slowbro: {
 		num: 80,
 		species: "Slowbro",
-		types: ["Water", "Psychic"],
+		types: ["Water", "Steel"],
 		baseStats: {hp: 95, atk: 75, def: 110, spa: 100, spd: 80, spe: 30},
 		abilities: {0: "Oblivious", 1: "Own Tempo", H: "Regenerator"},
 		heightm: 1.6,
@@ -1686,7 +1686,7 @@ let BattlePokedex = {
 	farfetchd: {
 		num: 83,
 		species: "Farfetch'd",
-		types: ["Normal", "Flying"],
+		types: ["Bird", "Grass"],
 		baseStats: {hp: 52, atk: 90, def: 55, spa: 58, spd: 62, spe: 60},
 		abilities: {0: "Keen Eye", 1: "Inner Focus", H: "Defiant"},
 		heightm: 0.8,
@@ -1697,7 +1697,7 @@ let BattlePokedex = {
 	doduo: {
 		num: 84,
 		species: "Doduo",
-		types: ["Normal", "Flying"],
+		types: ["Normal", "Bird"],
 		baseStats: {hp: 35, atk: 85, def: 45, spa: 35, spd: 35, spe: 75},
 		abilities: {0: "Run Away", 1: "Early Bird", H: "Tangled Feet"},
 		heightm: 1.4,
@@ -1709,7 +1709,7 @@ let BattlePokedex = {
 	dodrio: {
 		num: 85,
 		species: "Dodrio",
-		types: ["Normal", "Flying"],
+		types: ["Ground", "Bird"],
 		baseStats: {hp: 60, atk: 110, def: 70, spa: 60, spd: 60, spe: 110},
 		abilities: {0: "Run Away", 1: "Early Bird", H: "Tangled Feet"},
 		heightm: 1.8,
@@ -1775,7 +1775,7 @@ let BattlePokedex = {
 	muk: {
 		num: 89,
 		species: "Muk",
-		types: ["Poison"],
+		types: ["Poison", "Dark"],
 		baseStats: {hp: 105, atk: 105, def: 75, spa: 65, spd: 100, spe: 50},
 		abilities: {0: "Stench", 1: "Sticky Hold", H: "Poison Touch"},
 		heightm: 1.2,
@@ -1817,7 +1817,7 @@ let BattlePokedex = {
 	cloyster: {
 		num: 91,
 		species: "Cloyster",
-		types: ["Water", "Ice"],
+		types: ["Steel", "Ice"],
 		baseStats: {hp: 50, atk: 95, def: 180, spa: 85, spd: 45, spe: 70},
 		abilities: {0: "Shell Armor", 1: "Skill Link", H: "Overcoat"},
 		heightm: 1.5,
@@ -1831,7 +1831,7 @@ let BattlePokedex = {
 	gastly: {
 		num: 92,
 		species: "Gastly",
-		types: ["Ghost", "Poison"],
+		types: ["Poison", "Ghost"],
 		baseStats: {hp: 30, atk: 35, def: 30, spa: 100, spd: 35, spe: 80},
 		abilities: {0: "Levitate"},
 		heightm: 1.3,
@@ -1843,7 +1843,7 @@ let BattlePokedex = {
 	haunter: {
 		num: 93,
 		species: "Haunter",
-		types: ["Ghost", "Poison"],
+		types: ["Electric", "Ghost"],
 		baseStats: {hp: 45, atk: 50, def: 45, spa: 115, spd: 55, spe: 95},
 		abilities: {0: "Levitate"},
 		heightm: 1.6,
@@ -1857,7 +1857,7 @@ let BattlePokedex = {
 	gengar: {
 		num: 94,
 		species: "Gengar",
-		types: ["Ghost", "Poison"],
+		types: ["Dark", "Electric"],
 		baseStats: {hp: 60, atk: 65, def: 60, spa: 130, spd: 75, spe: 110},
 		abilities: {0: "Cursed Body"},
 		heightm: 1.5,
@@ -1885,7 +1885,7 @@ let BattlePokedex = {
 	onix: {
 		num: 95,
 		species: "Onix",
-		types: ["Rock", "Ground"],
+		types: ["Rock", "Dragon"],
 		baseStats: {hp: 35, atk: 45, def: 160, spa: 30, spd: 45, spe: 70},
 		abilities: {0: "Rock Head", 1: "Sturdy", H: "Weak Armor"},
 		heightm: 8.8,
@@ -1897,7 +1897,7 @@ let BattlePokedex = {
 	drowzee: {
 		num: 96,
 		species: "Drowzee",
-		types: ["Psychic"],
+		types: ["Psychic", "Ground"],
 		baseStats: {hp: 60, atk: 48, def: 45, spa: 43, spd: 90, spe: 42},
 		abilities: {0: "Insomnia", 1: "Forewarn", H: "Inner Focus"},
 		heightm: 1,
@@ -1934,7 +1934,7 @@ let BattlePokedex = {
 	kingler: {
 		num: 99,
 		species: "Kingler",
-		types: ["Water"],
+		types: ["Steel", "Water"],
 		baseStats: {hp: 55, atk: 130, def: 115, spa: 50, spd: 50, spe: 75},
 		abilities: {0: "Hyper Cutter", 1: "Shell Armor", H: "Sheer Force"},
 		heightm: 1.3,
@@ -1974,7 +1974,7 @@ let BattlePokedex = {
 	exeggcute: {
 		num: 102,
 		species: "Exeggcute",
-		types: ["Grass", "Psychic"],
+		types: ["Ground", "Grass"],
 		baseStats: {hp: 60, atk: 40, def: 80, spa: 60, spd: 45, spe: 40},
 		abilities: {0: "Chlorophyll", H: "Harvest"},
 		heightm: 0.4,
@@ -1986,7 +1986,7 @@ let BattlePokedex = {
 	exeggutor: {
 		num: 103,
 		species: "Exeggutor",
-		types: ["Grass", "Psychic"],
+		types: ["Psychic", "Grass"],
 		baseStats: {hp: 95, atk: 95, def: 85, spa: 125, spd: 75, spe: 55},
 		abilities: {0: "Chlorophyll", H: "Harvest"},
 		heightm: 2,
@@ -2030,7 +2030,7 @@ let BattlePokedex = {
 	marowak: {
 		num: 105,
 		species: "Marowak",
-		types: ["Ground"],
+		types: ["Ground", "Fighting"],
 		baseStats: {hp: 60, atk: 80, def: 110, spa: 50, spd: 80, spe: 45},
 		abilities: {0: "Rock Head", 1: "Lightning Rod", H: "Battle Armor"},
 		heightm: 1,
@@ -2102,7 +2102,7 @@ let BattlePokedex = {
 	lickitung: {
 		num: 108,
 		species: "Lickitung",
-		types: ["Normal"],
+		types: ["Normal", "Poison"],
 		baseStats: {hp: 90, atk: 55, def: 75, spa: 60, spd: 75, spe: 30},
 		abilities: {0: "Own Tempo", 1: "Oblivious", H: "Cloud Nine"},
 		heightm: 1.2,
@@ -2114,7 +2114,7 @@ let BattlePokedex = {
 	koffing: {
 		num: 109,
 		species: "Koffing",
-		types: ["Poison"],
+		types: ["Poison", "Rock"],
 		baseStats: {hp: 40, atk: 65, def: 95, spa: 60, spd: 45, spe: 35},
 		abilities: {0: "Levitate"},
 		heightm: 0.6,
@@ -2126,7 +2126,7 @@ let BattlePokedex = {
 	weezing: {
 		num: 110,
 		species: "Weezing",
-		types: ["Poison"],
+		types: ["Ghost", "Rock"],
 		baseStats: {hp: 65, atk: 90, def: 120, spa: 85, spd: 70, spe: 60},
 		abilities: {0: "Levitate"},
 		heightm: 1.2,
@@ -2139,7 +2139,7 @@ let BattlePokedex = {
 	rhyhorn: {
 		num: 111,
 		species: "Rhyhorn",
-		types: ["Ground", "Rock"],
+		types: ["Ground", "Normal"],
 		baseStats: {hp: 80, atk: 85, def: 95, spa: 30, spd: 30, spe: 25},
 		abilities: {0: "Lightning Rod", 1: "Rock Head", H: "Reckless"},
 		heightm: 1,
@@ -2181,7 +2181,7 @@ let BattlePokedex = {
 	tangela: {
 		num: 114,
 		species: "Tangela",
-		types: ["Grass"],
+		types: ["Normal", "Grass"],
 		baseStats: {hp: 65, atk: 55, def: 115, spa: 100, spd: 40, spe: 60},
 		abilities: {0: "Chlorophyll", 1: "Leaf Guard", H: "Regenerator"},
 		heightm: 1,
@@ -2193,7 +2193,7 @@ let BattlePokedex = {
 	kangaskhan: {
 		num: 115,
 		species: "Kangaskhan",
-		types: ["Normal"],
+		types: ["Normal", "Fighting"],
 		gender: "F",
 		baseStats: {hp: 105, atk: 95, def: 80, spa: 40, spd: 80, spe: 90},
 		abilities: {0: "Early Bird", 1: "Scrappy", H: "Inner Focus"},
@@ -2233,7 +2233,7 @@ let BattlePokedex = {
 	seadra: {
 		num: 117,
 		species: "Seadra",
-		types: ["Water"],
+		types: ["Dragon"],
 		baseStats: {hp: 55, atk: 65, def: 95, spa: 95, spd: 45, spe: 85},
 		abilities: {0: "Poison Point", 1: "Sniper", H: "Damp"},
 		heightm: 1.2,
@@ -2272,7 +2272,7 @@ let BattlePokedex = {
 	staryu: {
 		num: 120,
 		species: "Staryu",
-		types: ["Water"],
+		types: ["Water", "Psychic"],
 		gender: "N",
 		baseStats: {hp: 30, atk: 45, def: 55, spa: 70, spd: 55, spe: 85},
 		abilities: {0: "Illuminate", 1: "Natural Cure", H: "Analytic"},
@@ -2285,7 +2285,7 @@ let BattlePokedex = {
 	starmie: {
 		num: 121,
 		species: "Starmie",
-		types: ["Water", "Psychic"],
+		types: ["Water", "Ghost"],
 		gender: "N",
 		baseStats: {hp: 60, atk: 75, def: 85, spa: 100, spd: 85, spe: 115},
 		abilities: {0: "Illuminate", 1: "Natural Cure", H: "Analytic"},
@@ -2300,7 +2300,7 @@ let BattlePokedex = {
 	mrmime: {
 		num: 122,
 		species: "Mr. Mime",
-		types: ["Psychic", "Fairy"],
+		types: ["Psychic", "Normal"],
 		baseStats: {hp: 40, atk: 45, def: 65, spa: 100, spd: 120, spe: 90},
 		abilities: {0: "Soundproof", 1: "Filter", H: "Technician"},
 		heightm: 1.3,
@@ -2356,7 +2356,7 @@ let BattlePokedex = {
 	magmar: {
 		num: 126,
 		species: "Magmar",
-		types: ["Fire"],
+		types: ["Fire", "Poison"],
 		genderRatio: {M: 0.75, F: 0.25},
 		baseStats: {hp: 65, atk: 95, def: 57, spa: 100, spd: 85, spe: 93},
 		abilities: {0: "Flame Body", H: "Vital Spirit"},
@@ -2397,7 +2397,7 @@ let BattlePokedex = {
 	tauros: {
 		num: 128,
 		species: "Tauros",
-		types: ["Normal"],
+		types: ["Normal", "Steel"],
 		gender: "M",
 		baseStats: {hp: 75, atk: 100, def: 95, spa: 40, spd: 70, spe: 110},
 		abilities: {0: "Intimidate", 1: "Anger Point", H: "Sheer Force"},
@@ -2421,7 +2421,7 @@ let BattlePokedex = {
 	gyarados: {
 		num: 130,
 		species: "Gyarados",
-		types: ["Water", "Flying"],
+		types: ["Water", "Dark"],
 		baseStats: {hp: 95, atk: 125, def: 79, spa: 60, spd: 100, spe: 81},
 		abilities: {0: "Intimidate", H: "Moxie"},
 		heightm: 6.5,
@@ -2449,7 +2449,7 @@ let BattlePokedex = {
 	lapras: {
 		num: 131,
 		species: "Lapras",
-		types: ["Water", "Ice"],
+		types: ["Ghost", "Ice"],
 		baseStats: {hp: 130, atk: 85, def: 80, spa: 85, spd: 95, spe: 60},
 		abilities: {0: "Water Absorb", 1: "Shell Armor", H: "Hydration"},
 		heightm: 2.5,
@@ -2546,7 +2546,7 @@ let BattlePokedex = {
 	porygon: {
 		num: 137,
 		species: "Porygon",
-		types: ["Normal"],
+		types: ["Normal", "Psychic"],
 		gender: "N",
 		baseStats: {hp: 65, atk: 60, def: 70, spa: 85, spd: 75, spe: 40},
 		abilities: {0: "Trace", 1: "Download", H: "Analytic"},
@@ -2586,7 +2586,7 @@ let BattlePokedex = {
 	kabuto: {
 		num: 140,
 		species: "Kabuto",
-		types: ["Rock", "Water"],
+		types: ["Rock", "Bug"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 30, atk: 80, def: 90, spa: 55, spd: 45, spe: 55},
 		abilities: {0: "Swift Swim", 1: "Battle Armor", H: "Weak Armor"},
@@ -2599,7 +2599,7 @@ let BattlePokedex = {
 	kabutops: {
 		num: 141,
 		species: "Kabutops",
-		types: ["Rock", "Water"],
+		types: ["Steel", "Poison"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 60, atk: 115, def: 105, spa: 65, spd: 70, spe: 80},
 		abilities: {0: "Swift Swim", 1: "Battle Armor", H: "Weak Armor"},
@@ -2692,7 +2692,7 @@ let BattlePokedex = {
 	dratini: {
 		num: 147,
 		species: "Dratini",
-		types: ["Dragon"],
+		types: ["Dragon", "Normal"],
 		baseStats: {hp: 41, atk: 64, def: 45, spa: 50, spd: 50, spe: 50},
 		abilities: {0: "Shed Skin", H: "Marvel Scale"},
 		heightm: 1.8,
@@ -2704,7 +2704,8 @@ let BattlePokedex = {
 	dragonair: {
 		num: 148,
 		species: "Dragonair",
-		types: ["Dragon"],
+		types: ["Dragon", "Electric"],
+		types: ["Dragon", "Electric"],
 		baseStats: {hp: 61, atk: 84, def: 65, spa: 70, spd: 70, spe: 70},
 		abilities: {0: "Shed Skin", H: "Marvel Scale"},
 		heightm: 4,
@@ -2731,7 +2732,7 @@ let BattlePokedex = {
 	mewtwo: {
 		num: 150,
 		species: "Mewtwo",
-		types: ["Psychic"],
+		types: ["Psychic", "Beast"],
 		gender: "N",
 		baseStats: {hp: 106, atk: 110, def: 90, spa: 154, spd: 90, spe: 130},
 		abilities: {0: "Pressure", H: "Unnerve"},
@@ -2814,7 +2815,7 @@ let BattlePokedex = {
 	meganium: {
 		num: 154,
 		species: "Meganium",
-		types: ["Grass"],
+		types: ["Grass", "Dragon"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 80, atk: 82, def: 100, spa: 83, spd: 100, spe: 80},
 		abilities: {0: "Overgrow", H: "Leaf Guard"},
@@ -2912,7 +2913,7 @@ let BattlePokedex = {
 	sentret: {
 		num: 161,
 		species: "Sentret",
-		types: ["Normal"],
+		types: ["Flying", "Normal"],
 		baseStats: {hp: 35, atk: 46, def: 34, spa: 35, spd: 45, spe: 20},
 		abilities: {0: "Run Away", 1: "Keen Eye", H: "Frisk"},
 		heightm: 0.8,
@@ -2937,7 +2938,7 @@ let BattlePokedex = {
 	hoothoot: {
 		num: 163,
 		species: "Hoothoot",
-		types: ["Normal", "Flying"],
+		types: ["Bird", "Flying"],
 		baseStats: {hp: 60, atk: 30, def: 30, spa: 36, spd: 56, spe: 50},
 		abilities: {0: "Insomnia", 1: "Keen Eye", H: "Tinted Lens"},
 		heightm: 0.7,
@@ -2949,7 +2950,7 @@ let BattlePokedex = {
 	noctowl: {
 		num: 164,
 		species: "Noctowl",
-		types: ["Normal", "Flying"],
+		types: ["Bird", "Ghost"],
 		baseStats: {hp: 100, atk: 50, def: 50, spa: 86, spd: 96, spe: 70},
 		abilities: {0: "Insomnia", 1: "Keen Eye", H: "Tinted Lens"},
 		heightm: 1.6,
@@ -2974,7 +2975,7 @@ let BattlePokedex = {
 	ledian: {
 		num: 166,
 		species: "Ledian",
-		types: ["Bug", "Flying"],
+		types: ["Fighting", "Flying"],
 		baseStats: {hp: 55, atk: 35, def: 50, spa: 55, spd: 110, spe: 85},
 		abilities: {0: "Swarm", 1: "Early Bird", H: "Iron Fist"},
 		heightm: 1.4,
@@ -3147,7 +3148,7 @@ let BattlePokedex = {
 	xatu: {
 		num: 178,
 		species: "Xatu",
-		types: ["Psychic", "Flying"],
+		types: ["Flying", "Psychic"],
 		baseStats: {hp: 65, atk: 75, def: 70, spa: 95, spd: 70, spe: 95},
 		abilities: {0: "Synchronize", 1: "Early Bird", H: "Magic Bounce"},
 		heightm: 1.5,
@@ -3160,7 +3161,7 @@ let BattlePokedex = {
 	mareep: {
 		num: 179,
 		species: "Mareep",
-		types: ["Electric"],
+		types: ["Normal", "Electric"],
 		baseStats: {hp: 55, atk: 40, def: 40, spa: 65, spd: 45, spe: 35},
 		abilities: {0: "Static", H: "Plus"},
 		heightm: 0.6,
@@ -3186,7 +3187,7 @@ let BattlePokedex = {
 	ampharos: {
 		num: 181,
 		species: "Ampharos",
-		types: ["Electric"],
+		types: ["Electric", "Fighting"],
 		baseStats: {hp: 90, atk: 75, def: 85, spa: 115, spd: 90, spe: 55},
 		abilities: {0: "Static", H: "Plus"},
 		heightm: 1.4,
@@ -3214,7 +3215,7 @@ let BattlePokedex = {
 	bellossom: {
 		num: 182,
 		species: "Bellossom",
-		types: ["Grass"],
+		types: ["Grass", "Psychic"],
 		baseStats: {hp: 75, atk: 80, def: 95, spa: 90, spd: 100, spe: 50},
 		abilities: {0: "Chlorophyll", H: "Healer"},
 		heightm: 0.4,
@@ -3284,7 +3285,7 @@ let BattlePokedex = {
 	hoppip: {
 		num: 187,
 		species: "Hoppip",
-		types: ["Grass", "Flying"],
+		types: ["Water", "Grass"],
 		baseStats: {hp: 35, atk: 35, def: 40, spa: 35, spd: 55, spe: 50},
 		abilities: {0: "Chlorophyll", 1: "Leaf Guard", H: "Infiltrator"},
 		heightm: 0.4,
@@ -3296,7 +3297,7 @@ let BattlePokedex = {
 	skiploom: {
 		num: 188,
 		species: "Skiploom",
-		types: ["Grass", "Flying"],
+		types: ["Normal", "Grass"],
 		baseStats: {hp: 55, atk: 45, def: 50, spa: 45, spd: 65, spe: 80},
 		abilities: {0: "Chlorophyll", 1: "Leaf Guard", H: "Infiltrator"},
 		heightm: 0.6,
@@ -3310,7 +3311,7 @@ let BattlePokedex = {
 	jumpluff: {
 		num: 189,
 		species: "Jumpluff",
-		types: ["Grass", "Flying"],
+		types: ["Flying", "Grass"],
 		baseStats: {hp: 75, atk: 55, def: 70, spa: 55, spd: 95, spe: 110},
 		abilities: {0: "Chlorophyll", 1: "Leaf Guard", H: "Infiltrator"},
 		heightm: 0.8,
@@ -3323,7 +3324,7 @@ let BattlePokedex = {
 	aipom: {
 		num: 190,
 		species: "Aipom",
-		types: ["Normal"],
+		types: ["Fighting", "Normal"],
 		baseStats: {hp: 55, atk: 70, def: 55, spa: 40, spd: 55, spe: 85},
 		abilities: {0: "Run Away", 1: "Pickup", H: "Skill Link"},
 		heightm: 0.8,
@@ -3347,7 +3348,7 @@ let BattlePokedex = {
 	sunflora: {
 		num: 192,
 		species: "Sunflora",
-		types: ["Grass"],
+		types: ["Grass", "Electric"],
 		baseStats: {hp: 75, atk: 75, def: 55, spa: 105, spd: 85, spe: 30},
 		abilities: {0: "Chlorophyll", 1: "Solar Power", H: "Early Bird"},
 		heightm: 0.8,
@@ -3373,7 +3374,7 @@ let BattlePokedex = {
 	wooper: {
 		num: 194,
 		species: "Wooper",
-		types: ["Water", "Ground"],
+		types: ["Water"],
 		baseStats: {hp: 55, atk: 45, def: 45, spa: 25, spd: 25, spe: 15},
 		abilities: {0: "Damp", 1: "Water Absorb", H: "Unaware"},
 		heightm: 0.4,
@@ -3453,7 +3454,7 @@ let BattlePokedex = {
 	misdreavus: {
 		num: 200,
 		species: "Misdreavus",
-		types: ["Ghost"],
+		types: ["Ghost", "Fire"],
 		baseStats: {hp: 60, atk: 60, def: 60, spa: 85, spd: 85, spe: 85},
 		abilities: {0: "Levitate"},
 		heightm: 0.7,
@@ -3466,7 +3467,7 @@ let BattlePokedex = {
 		num: 201,
 		species: "Unown",
 		baseForme: "A",
-		types: ["Psychic"],
+		types: ["Ghost", "Psychic"],
 		gender: "N",
 		baseStats: {hp: 48, atk: 72, def: 48, spa: 72, spd: 48, spe: 48},
 		abilities: {0: "Levitate"},
@@ -3492,7 +3493,7 @@ let BattlePokedex = {
 	girafarig: {
 		num: 203,
 		species: "Girafarig",
-		types: ["Normal", "Psychic"],
+		types: ["Dark", "Psychic"],
 		baseStats: {hp: 70, atk: 80, def: 65, spa: 90, spd: 65, spe: 85},
 		abilities: {0: "Inner Focus", 1: "Early Bird", H: "Sap Sipper"},
 		heightm: 1.5,
@@ -3528,7 +3529,7 @@ let BattlePokedex = {
 	dunsparce: {
 		num: 206,
 		species: "Dunsparce",
-		types: ["Normal"],
+		types: ["Bug", "Dragon"],
 		baseStats: {hp: 100, atk: 70, def: 70, spa: 65, spd: 65, spe: 45},
 		abilities: {0: "Serene Grace", 1: "Run Away", H: "Rattled"},
 		heightm: 1.5,
@@ -3579,7 +3580,7 @@ let BattlePokedex = {
 	snubbull: {
 		num: 209,
 		species: "Snubbull",
-		types: ["Fairy"],
+		types: ["Fairy" , "Dark"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 60, atk: 80, def: 50, spa: 40, spd: 40, spe: 30},
 		abilities: {0: "Intimidate", 1: "Run Away", H: "Rattled"},
@@ -3592,7 +3593,7 @@ let BattlePokedex = {
 	granbull: {
 		num: 210,
 		species: "Granbull",
-		types: ["Fairy"],
+		types: ["Beast" , "Dark"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 90, atk: 120, def: 75, spa: 60, spd: 60, spe: 45},
 		abilities: {0: "Intimidate", 1: "Quick Feet", H: "Rattled"},
@@ -3606,7 +3607,7 @@ let BattlePokedex = {
 	qwilfish: {
 		num: 211,
 		species: "Qwilfish",
-		types: ["Water", "Poison"],
+		types: ["Ice", "Poison"],
 		baseStats: {hp: 65, atk: 95, def: 85, spa: 55, spd: 55, spe: 85},
 		abilities: {0: "Poison Point", 1: "Swift Swim", H: "Intimidate"},
 		heightm: 0.5,
@@ -3706,7 +3707,7 @@ let BattlePokedex = {
 	ursaring: {
 		num: 217,
 		species: "Ursaring",
-		types: ["Normal"],
+		types: ["Beast"],
 		baseStats: {hp: 90, atk: 130, def: 75, spa: 75, spd: 75, spe: 55},
 		abilities: {0: "Guts", 1: "Quick Feet", H: "Unnerve"},
 		heightm: 1.8,
@@ -3794,7 +3795,7 @@ let BattlePokedex = {
 	octillery: {
 		num: 224,
 		species: "Octillery",
-		types: ["Water"],
+		types: ["Water", "Normal"],
 		baseStats: {hp: 75, atk: 105, def: 75, spa: 105, spd: 75, spe: 45},
 		abilities: {0: "Suction Cups", 1: "Sniper", H: "Moody"},
 		heightm: 0.9,
@@ -3807,7 +3808,7 @@ let BattlePokedex = {
 	delibird: {
 		num: 225,
 		species: "Delibird",
-		types: ["Ice", "Flying"],
+		types: ["Ice", "Bird"],
 		baseStats: {hp: 45, atk: 55, def: 45, spa: 65, spd: 45, spe: 75},
 		abilities: {0: "Vital Spirit", 1: "Hustle", H: "Insomnia"},
 		heightm: 0.9,
@@ -3833,7 +3834,7 @@ let BattlePokedex = {
 	skarmory: {
 		num: 227,
 		species: "Skarmory",
-		types: ["Steel", "Flying"],
+		types: ["Steel", "Bird"],
 		baseStats: {hp: 65, atk: 80, def: 140, spa: 40, spd: 70, spe: 70},
 		abilities: {0: "Keen Eye", 1: "Sturdy", H: "Weak Armor"},
 		heightm: 1.7,
@@ -3897,7 +3898,7 @@ let BattlePokedex = {
 	phanpy: {
 		num: 231,
 		species: "Phanpy",
-		types: ["Ground"],
+		types: ["Ground", "Fairy"],
 		baseStats: {hp: 90, atk: 60, def: 60, spa: 40, spd: 40, spe: 40},
 		abilities: {0: "Pickup", H: "Sand Veil"},
 		heightm: 0.5,
@@ -3909,7 +3910,7 @@ let BattlePokedex = {
 	donphan: {
 		num: 232,
 		species: "Donphan",
-		types: ["Ground"],
+		types: ["Ground", "Beast"],
 		baseStats: {hp: 90, atk: 120, def: 120, spa: 60, spd: 60, spe: 50},
 		abilities: {0: "Sturdy", H: "Sand Veil"},
 		heightm: 1.1,
@@ -3922,7 +3923,7 @@ let BattlePokedex = {
 	porygon2: {
 		num: 233,
 		species: "Porygon2",
-		types: ["Normal"],
+		types: ["Electric", "Psychic"],
 		gender: "N",
 		baseStats: {hp: 85, atk: 80, def: 90, spa: 105, spd: 95, spe: 60},
 		abilities: {0: "Trace", 1: "Download", H: "Analytic"},
@@ -3937,7 +3938,7 @@ let BattlePokedex = {
 	stantler: {
 		num: 234,
 		species: "Stantler",
-		types: ["Normal"],
+		types: ["Dark", "Fighting"],
 		baseStats: {hp: 73, atk: 95, def: 62, spa: 85, spd: 65, spe: 85},
 		abilities: {0: "Intimidate", 1: "Frisk", H: "Sap Sipper"},
 		heightm: 1.4,
@@ -3987,7 +3988,7 @@ let BattlePokedex = {
 	smoochum: {
 		num: 238,
 		species: "Smoochum",
-		types: ["Ice", "Psychic"],
+		types: ["Ice"],
 		gender: "F",
 		baseStats: {hp: 45, atk: 30, def: 15, spa: 85, spd: 65, spe: 65},
 		abilities: {0: "Oblivious", 1: "Forewarn", H: "Hydration"},
@@ -4055,7 +4056,7 @@ let BattlePokedex = {
 	raikou: {
 		num: 243,
 		species: "Raikou",
-		types: ["Electric"],
+		types: ["Electric", "Beast"],
 		gender: "N",
 		baseStats: {hp: 90, atk: 85, def: 75, spa: 115, spd: 100, spe: 115},
 		abilities: {0: "Pressure", H: "Inner Focus"},
@@ -4067,7 +4068,7 @@ let BattlePokedex = {
 	entei: {
 		num: 244,
 		species: "Entei",
-		types: ["Fire"],
+		types: ["Fire", "Ground"],
 		gender: "N",
 		baseStats: {hp: 115, atk: 115, def: 85, spa: 90, spd: 75, spe: 100},
 		abilities: {0: "Pressure", H: "Inner Focus"},
@@ -4079,7 +4080,7 @@ let BattlePokedex = {
 	suicune: {
 		num: 245,
 		species: "Suicune",
-		types: ["Water"],
+		types: ["Ice", "Electric"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 75, def: 115, spa: 90, spd: 115, spe: 85},
 		abilities: {0: "Pressure", H: "Inner Focus"},
@@ -4091,7 +4092,7 @@ let BattlePokedex = {
 	larvitar: {
 		num: 246,
 		species: "Larvitar",
-		types: ["Rock", "Ground"],
+		types: ["Rock", "Normal"],
 		baseStats: {hp: 50, atk: 64, def: 50, spa: 45, spd: 50, spe: 41},
 		abilities: {0: "Guts", H: "Sand Veil"},
 		heightm: 0.6,
@@ -4103,7 +4104,7 @@ let BattlePokedex = {
 	pupitar: {
 		num: 247,
 		species: "Pupitar",
-		types: ["Rock", "Ground"],
+		types: ["Steel", "Dark"],
 		baseStats: {hp: 70, atk: 84, def: 70, spa: 65, spd: 70, spe: 51},
 		abilities: {0: "Shed Skin"},
 		heightm: 1.2,
@@ -4145,7 +4146,7 @@ let BattlePokedex = {
 	lugia: {
 		num: 249,
 		species: "Lugia",
-		types: ["Psychic", "Flying"],
+		types: ["Beast", "Bird"],
 		gender: "N",
 		baseStats: {hp: 106, atk: 90, def: 130, spa: 90, spd: 154, spe: 110},
 		abilities: {0: "Pressure", H: "Multiscale"},
@@ -4157,7 +4158,7 @@ let BattlePokedex = {
 	hooh: {
 		num: 250,
 		species: "Ho-Oh",
-		types: ["Fire", "Flying"],
+		types: ["Fire", "Bird"],
 		gender: "N",
 		baseStats: {hp: 106, atk: 130, def: 90, spa: 110, spd: 154, spe: 90},
 		abilities: {0: "Pressure", H: "Regenerator"},
@@ -4169,7 +4170,7 @@ let BattlePokedex = {
 	celebi: {
 		num: 251,
 		species: "Celebi",
-		types: ["Psychic", "Grass"],
+		types: ["Grass", "Fire"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 100, def: 100, spa: 100, spd: 100, spe: 100},
 		abilities: {0: "Natural Cure"},
@@ -4367,7 +4368,7 @@ let BattlePokedex = {
 	mightyena: {
 		num: 262,
 		species: "Mightyena",
-		types: ["Dark"],
+		types: ["Dark", "Beast"],
 		baseStats: {hp: 70, atk: 90, def: 70, spa: 60, spd: 60, spe: 70},
 		abilities: {0: "Intimidate", 1: "Quick Feet", H: "Moxie"},
 		heightm: 1,
@@ -4405,7 +4406,7 @@ let BattlePokedex = {
 	wurmple: {
 		num: 265,
 		species: "Wurmple",
-		types: ["Bug"],
+		types: ["Bug", "Normal"],
 		baseStats: {hp: 45, atk: 45, def: 35, spa: 20, spd: 30, spe: 20},
 		abilities: {0: "Shield Dust", H: "Run Away"},
 		heightm: 0.3,
@@ -4537,7 +4538,7 @@ let BattlePokedex = {
 	shiftry: {
 		num: 275,
 		species: "Shiftry",
-		types: ["Grass", "Dark"],
+		types: ["Grass", "Beast"],
 		baseStats: {hp: 90, atk: 100, def: 60, spa: 90, spd: 60, spe: 80},
 		abilities: {0: "Chlorophyll", 1: "Early Bird", H: "Pickpocket"},
 		heightm: 1.3,
@@ -4576,7 +4577,7 @@ let BattlePokedex = {
 	wingull: {
 		num: 278,
 		species: "Wingull",
-		types: ["Water", "Flying"],
+		types: ["Water", "Bird"],
 		baseStats: {hp: 40, atk: 30, def: 30, spa: 55, spd: 30, spe: 85},
 		abilities: {0: "Keen Eye", 1: "Hydration", H: "Rain Dish"},
 		heightm: 0.6,
@@ -4601,7 +4602,7 @@ let BattlePokedex = {
 	ralts: {
 		num: 280,
 		species: "Ralts",
-		types: ["Psychic", "Fairy"],
+		types: ["Psychic"],
 		baseStats: {hp: 28, atk: 25, def: 25, spa: 45, spd: 35, spe: 40},
 		abilities: {0: "Synchronize", 1: "Trace", H: "Telepathy"},
 		heightm: 0.4,
@@ -4655,7 +4656,7 @@ let BattlePokedex = {
 	surskit: {
 		num: 283,
 		species: "Surskit",
-		types: ["Bug", "Water"],
+		types: ["Water", "Bug"],
 		baseStats: {hp: 40, atk: 30, def: 32, spa: 50, spd: 52, spe: 65},
 		abilities: {0: "Swift Swim", H: "Rain Dish"},
 		heightm: 0.5,
@@ -4667,7 +4668,7 @@ let BattlePokedex = {
 	masquerain: {
 		num: 284,
 		species: "Masquerain",
-		types: ["Bug", "Flying"],
+		types: ["Flying", "Bug"],
 		baseStats: {hp: 70, atk: 60, def: 62, spa: 100, spd: 82, spe: 80},
 		abilities: {0: "Intimidate", H: "Unnerve"},
 		heightm: 0.8,
@@ -4889,7 +4890,7 @@ let BattlePokedex = {
 	delcatty: {
 		num: 301,
 		species: "Delcatty",
-		types: ["Normal"],
+		types: ["Fairy"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 70, atk: 65, def: 65, spa: 55, spd: 55, spe: 90},
 		abilities: {0: "Cute Charm", 1: "Normalize", H: "Wonder Skin"},
@@ -4930,7 +4931,7 @@ let BattlePokedex = {
 	mawile: {
 		num: 303,
 		species: "Mawile",
-		types: ["Steel", "Fairy"],
+		types: ["Steel", "Beast"],
 		baseStats: {hp: 50, atk: 85, def: 85, spa: 55, spd: 55, spe: 50},
 		abilities: {0: "Hyper Cutter", 1: "Intimidate", H: "Sheer Force"},
 		heightm: 0.6,
@@ -5112,7 +5113,7 @@ let BattlePokedex = {
 	volbeat: {
 		num: 313,
 		species: "Volbeat",
-		types: ["Bug"],
+		types: ["Bug", "Electric"],
 		gender: "M",
 		baseStats: {hp: 65, atk: 73, def: 75, spa: 47, spd: 85, spe: 85},
 		abilities: {0: "Illuminate", 1: "Swarm", H: "Prankster"},
@@ -5124,7 +5125,7 @@ let BattlePokedex = {
 	illumise: {
 		num: 314,
 		species: "Illumise",
-		types: ["Bug"],
+		types: ["Bug", "Fairy"],
 		gender: "F",
 		baseStats: {hp: 65, atk: 47, def: 75, spa: 73, spd: 85, spe: 85},
 		abilities: {0: "Oblivious", 1: "Tinted Lens", H: "Prankster"},
@@ -5136,7 +5137,7 @@ let BattlePokedex = {
 	roselia: {
 		num: 315,
 		species: "Roselia",
-		types: ["Grass", "Poison"],
+		types: ["Grass", "Fairy"],
 		baseStats: {hp: 50, atk: 60, def: 45, spa: 100, spd: 80, spe: 65},
 		abilities: {0: "Natural Cure", 1: "Poison Point", H: "Leaf Guard"},
 		heightm: 0.3,
@@ -5152,7 +5153,7 @@ let BattlePokedex = {
 	gulpin: {
 		num: 316,
 		species: "Gulpin",
-		types: ["Poison"],
+		types: ["Poison", "Normal"],
 		baseStats: {hp: 70, atk: 43, def: 53, spa: 43, spd: 53, spe: 40},
 		abilities: {0: "Liquid Ooze", 1: "Sticky Hold", H: "Gluttony"},
 		heightm: 0.4,
@@ -5282,7 +5283,7 @@ let BattlePokedex = {
 	torkoal: {
 		num: 324,
 		species: "Torkoal",
-		types: ["Fire"],
+		types: ["Fire", "Ice"],
 		baseStats: {hp: 70, atk: 85, def: 140, spa: 85, spd: 70, spe: 20},
 		abilities: {0: "White Smoke", 1: "Drought", H: "Shell Armor"},
 		heightm: 0.5,
@@ -5305,7 +5306,7 @@ let BattlePokedex = {
 	grumpig: {
 		num: 326,
 		species: "Grumpig",
-		types: ["Psychic"],
+		types: ["Psychic", "Dark"],
 		baseStats: {hp: 80, atk: 45, def: 65, spa: 90, spd: 110, spe: 80},
 		abilities: {0: "Thick Fat", 1: "Own Tempo", H: "Gluttony"},
 		heightm: 0.9,
@@ -5318,7 +5319,7 @@ let BattlePokedex = {
 	spinda: {
 		num: 327,
 		species: "Spinda",
-		types: ["Normal"],
+		types: ["Fairy", "Fighting"],
 		baseStats: {hp: 60, atk: 60, def: 60, spa: 60, spd: 60, spe: 60},
 		abilities: {0: "Own Tempo", 1: "Tangled Feet", H: "Contrary"},
 		heightm: 1.1,
@@ -5341,7 +5342,7 @@ let BattlePokedex = {
 	vibrava: {
 		num: 329,
 		species: "Vibrava",
-		types: ["Ground", "Dragon"],
+		types: ["Bug", "Dragon"],
 		baseStats: {hp: 50, atk: 70, def: 50, spa: 50, spd: 50, spe: 70},
 		abilities: {0: "Levitate"},
 		heightm: 1.1,
@@ -5405,7 +5406,7 @@ let BattlePokedex = {
 	altaria: {
 		num: 334,
 		species: "Altaria",
-		types: ["Dragon", "Flying"],
+		types: ["Dragon", "Fairy"],
 		baseStats: {hp: 75, atk: 70, def: 90, spa: 70, spd: 105, spe: 80},
 		abilities: {0: "Natural Cure", H: "Cloud Nine"},
 		heightm: 1.1,
@@ -5433,7 +5434,7 @@ let BattlePokedex = {
 	zangoose: {
 		num: 335,
 		species: "Zangoose",
-		types: ["Normal"],
+		types: ["Beast"],
 		baseStats: {hp: 73, atk: 115, def: 60, spa: 60, spd: 60, spe: 90},
 		abilities: {0: "Immunity", H: "Toxic Boost"},
 		heightm: 1.3,
@@ -5479,7 +5480,7 @@ let BattlePokedex = {
 	barboach: {
 		num: 339,
 		species: "Barboach",
-		types: ["Water", "Ground"],
+		types: ["Electric", "Ground"],
 		baseStats: {hp: 50, atk: 48, def: 43, spa: 46, spd: 41, spe: 60},
 		abilities: {0: "Oblivious", 1: "Anticipation", H: "Hydration"},
 		heightm: 0.4,
@@ -5491,7 +5492,7 @@ let BattlePokedex = {
 	whiscash: {
 		num: 340,
 		species: "Whiscash",
-		types: ["Water", "Ground"],
+		types: ["Electric", "Poison"],
 		baseStats: {hp: 110, atk: 78, def: 73, spa: 76, spd: 71, spe: 60},
 		abilities: {0: "Oblivious", 1: "Anticipation", H: "Hydration"},
 		heightm: 0.9,
@@ -5529,7 +5530,7 @@ let BattlePokedex = {
 	baltoy: {
 		num: 343,
 		species: "Baltoy",
-		types: ["Ground", "Psychic"],
+		types: ["Ground", "Fairy"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 40, def: 55, spa: 40, spd: 70, spe: 55},
 		abilities: {0: "Levitate"},
@@ -5700,7 +5701,7 @@ let BattlePokedex = {
 	shuppet: {
 		num: 353,
 		species: "Shuppet",
-		types: ["Ghost"],
+		types: ["Flying", "Ghost"],
 		baseStats: {hp: 44, atk: 75, def: 35, spa: 63, spd: 33, spe: 45},
 		abilities: {0: "Insomnia", 1: "Frisk", H: "Cursed Body"},
 		heightm: 0.6,
@@ -5752,7 +5753,7 @@ let BattlePokedex = {
 	dusclops: {
 		num: 356,
 		species: "Dusclops",
-		types: ["Ghost"],
+		types: ["Ghost", "Ground"],
 		baseStats: {hp: 40, atk: 70, def: 130, spa: 60, spd: 130, spe: 25},
 		abilities: {0: "Pressure", H: "Frisk"},
 		heightm: 1.6,
@@ -5792,7 +5793,7 @@ let BattlePokedex = {
 	absol: {
 		num: 359,
 		species: "Absol",
-		types: ["Dark"],
+		types: ["Dark", "Fairy"],
 		baseStats: {hp: 65, atk: 130, def: 60, spa: 75, spd: 60, spe: 75},
 		abilities: {0: "Pressure", 1: "Super Luck", H: "Justified"},
 		heightm: 1.2,
@@ -5960,7 +5961,7 @@ let BattlePokedex = {
 	luvdisc: {
 		num: 370,
 		species: "Luvdisc",
-		types: ["Water"],
+		types: ["Water", "Fairy"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 43, atk: 30, def: 55, spa: 40, spd: 65, spe: 97},
 		abilities: {0: "Swift Swim", H: "Hydration"},
@@ -5984,7 +5985,7 @@ let BattlePokedex = {
 	shelgon: {
 		num: 372,
 		species: "Shelgon",
-		types: ["Dragon"],
+		types: ["Dragon", "Dark"],
 		baseStats: {hp: 65, atk: 95, def: 100, spa: 60, spd: 50, spe: 50},
 		abilities: {0: "Rock Head", H: "Overcoat"},
 		heightm: 1.1,
@@ -6260,7 +6261,7 @@ let BattlePokedex = {
 	jirachi: {
 		num: 385,
 		species: "Jirachi",
-		types: ["Steel", "Psychic"],
+		types: ["Steel", "Ghost"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 100, def: 100, spa: 100, spd: 100, spe: 100},
 		abilities: {0: "Serene Grace"},
@@ -12188,7 +12189,7 @@ let BattlePokedex = {
 	dewpider: {
 		num: 751,
 		species: "Dewpider",
-		types: ["Water", "Bug"],
+		types: ["Bug", "Water"],
 		baseStats: {hp: 38, atk: 40, def: 52, spa: 40, spd: 72, spe: 27},
 		abilities: {0: "Water Bubble", H: "Water Absorb"},
 		heightm: 0.3,
@@ -13770,18 +13771,6 @@ let BattlePokedex = {
 		weightkg: 120,
 		color: "Blue",
 		eggGroups: ["Water 1", "Fairy"],
-	},
-	equilibra: {
-		num: -28,
-		species: "Equilibra",
-		types: ["Steel", "Ground"],
-		gender: "N",
-		baseStats: {hp: 102, atk: 50, def: 96, spa: 133, spd: 118, spe: 60},
-		abilities: {0: "Levitate", 1: "Bulletproof", H: "Justified"},
-		heightm: 0.8,
-		weightkg: 51.3,
-		color: "Brown",
-		eggGroups: ["Mineral"],
 	},
 	syclar: {
 		num: -101,

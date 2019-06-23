@@ -1,8 +1,9 @@
 'use strict';
 
-/**@type {{[k: string]: TypeData}} */
+/**@type {{[k: string]: ModdedTypeData}} */
 let BattleTypeChart = {
 	"Bug": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 0,
 			"Dark": 0,
@@ -23,12 +24,59 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {"atk": 30, "def": 30, "spd": 30},
-		// HPdvs: {"atk": 13, "def": 13},
 	},
-	"Dark": {
+// // !
+	"Beast": {
+		//inherit: true,
 		damageTaken: {
-			prankster: 3,
+			"Bug": 0,
+			"Dark": 0,
+			"Dragon": 2,
+			"Electric": 0,
+			"Fairy": 1,
+			"Fighting": 0,
+			"Fire": 0,
+			"Flying": 0,
+			"Ghost": 2,
+			"Grass": 0,
+			"Ground": 0,
+			"Ice": 0,
+			"Normal": 0,
+			"Poison": 0,
+			"Psychic": 0,
+			"Rock": 0,
+			"Steel": 1,
+			"Water": 0,
+		},
+	},
+	
+	"Bird": {
+		//inherit: true,
+		damageTaken: {
+			"Bug": 0,
+			"Dark": 1,
+			"Dragon": 1,
+			"Electric": 0,
+			"Fairy": 0,
+			"Fighting": 0,
+			"Fire": 0,
+			"Flying": 2,
+			"Ghost": 0,
+			"Grass": 0,
+			"Ground": 2,
+			"Ice": 0,
+			"Normal": 0,
+			"Poison": 0,
+			"Psychic": 0,
+			"Rock": 1,
+			"Steel": 0,
+			"Water": 2,
+		},
+	},
+// // !
+	"Dark": {
+		//inherit: true,
+		damageTaken: {
 			"Bug": 1,
 			"Dark": 2,
 			"Dragon": 0,
@@ -48,9 +96,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {},
 	},
 	"Dragon": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 0,
 			"Dark": 0,
@@ -71,10 +119,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 2,
 		},
-		// HPivs: {"atk": 30},
-		// HPdvs: {"def": 14},
 	},
 	"Electric": {
+		//inherit: true,
 		damageTaken: {
 			par: 3,
 			"Bug": 0,
@@ -96,16 +143,15 @@ let BattleTypeChart = {
 			"Steel": 2,
 			"Water": 0,
 		},
-		// HPivs: {"spa": 30},
-		// HPdvs: {"atk": 14},
 	},
 	"Fairy": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 2,
 			"Dark": 1,
 			"Dragon": 3,
 			"Electric": 0,
-			"Fairy": 0,
+		    "Fairy": 0,
 			"Fighting": 0,
 			"Fire": 1,
 			"Flying": 0,
@@ -122,6 +168,7 @@ let BattleTypeChart = {
 		},
 	},
 	"Fighting": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 2,
 			"Dark": 2,
@@ -142,10 +189,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {"def": 30, "spa": 30, "spd": 30, "spe": 30},
-		// HPdvs: {"atk": 12, "def": 12},
 	},
 	"Fire": {
+		//inherit: true,
 		damageTaken: {
 			brn: 3,
 			"Bug": 2,
@@ -167,10 +213,9 @@ let BattleTypeChart = {
 			"Steel": 2,
 			"Water": 1,
 		},
-		// HPivs: {"atk": 30, "spa": 30, "spe": 30},
-		// HPdvs: {"atk": 14, "def": 12},
 	},
 	"Flying": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 2,
 			"Dark": 0,
@@ -191,10 +236,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {"hp": 30, "atk": 30, "def": 30, "spa": 30, "spd": 30},
-		// HPdvs: {"atk": 12, "def": 13},
 	},
 	"Ghost": {
+		//inherit: true,
 		damageTaken: {
 			trapped: 3,
 			"Bug": 2,
@@ -216,10 +260,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {"def": 30, "spd": 30},
-		// HPdvs: {"atk": 13, "def": 14},
 	},
 	"Grass": {
+		//inherit: true,
 		damageTaken: {
 			powder: 3,
 			"Bug": 1,
@@ -241,10 +284,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 2,
 		},
-		// HPivs: {"atk": 30, "spa": 30},
-		// HPdvs: {"atk": 14, "def": 14},
 	},
 	"Ground": {
+		//inherit: true,
 		damageTaken: {
 			sandstorm: 3,
 			"Bug": 0,
@@ -266,10 +308,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 1,
 		},
-		// HPivs: {"spa": 30, "spd": 30},
-		// HPdvs: {"atk": 12},
 	},
 	"Ice": {
+		//inherit: true,
 		damageTaken: {
 			hail: 3,
 			frz: 3,
@@ -292,10 +333,9 @@ let BattleTypeChart = {
 			"Steel": 1,
 			"Water": 0,
 		},
-		// HPivs: {"atk": 30, "def": 30},
-		// HPdvs: {"def": 13},
 	},
 	"Normal": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 0,
 			"Dark": 0,
@@ -318,6 +358,7 @@ let BattleTypeChart = {
 		},
 	},
 	"Poison": {
+		//inherit: true,
 		damageTaken: {
 			psn: 3,
 			tox: 3,
@@ -340,10 +381,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {"def": 30, "spa": 30, "spd": 30},
-		// HPdvs: {"atk": 12, "def": 14},
 	},
 	"Psychic": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 1,
 			"Dark": 1,
@@ -364,11 +404,10 @@ let BattleTypeChart = {
 			"Steel": 2,
 			"Water": 0,
 		},
-		// HPivs: {"atk": 30, "spe": 30},
-		// HPdvs: {"def": 12},
 	},
 	"Rock": {
 		damageTaken: {
+			//inherit: true,
 			sandstorm: 3,
 			"Bug": 0,
 			"Dark": 0,
@@ -389,10 +428,9 @@ let BattleTypeChart = {
 			"Steel": 1,
 			"Water": 1,
 		},
-		// HPivs: {"def": 30, "spd": 30, "spe": 30},
-		// HPdvs: {"atk": 13, "def": 12},
 	},
 	"Steel": {
+		//inherit: true,
 		damageTaken: {
 			psn: 3,
 			tox: 3,
@@ -401,7 +439,7 @@ let BattleTypeChart = {
 			"Dark": 2,
 			"Dragon": 0,
 			"Electric": 0,
-			"Fairy": 2,
+			"Fairy": 2, 
 			"Fighting": 1,
 			"Fire": 1,
 			"Flying": 2,
@@ -416,10 +454,9 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 0,
 		},
-		// HPivs: {"spd": 30},
-		// HPdvs: {"atk": 13},
 	},
 	"Water": {
+		//inherit: true,
 		damageTaken: {
 			"Bug": 0,
 			"Dark": 0,
@@ -440,9 +477,8 @@ let BattleTypeChart = {
 			"Steel": 0,
 			"Water": 2,
 		},
-		// HPivs: {"atk": 30, "def": 30, "spa": 30},
-		// HPdvs: {"atk": 14, "def": 13},
 	},
+
 };
 
 exports.BattleTypeChart = BattleTypeChart;

@@ -1,6 +1,8 @@
 'use strict';
-
 /**@type {{[k: string]: PureEffectData}} */
+
+var zenkaiBoost;
+
 let BattleStatuses = {
 	brn: {
 		name: 'brn',
@@ -33,6 +35,12 @@ let BattleStatuses = {
 			} else {
 				this.add('-status', target, 'par');
 			}
+			// // // ! Only to be implemented when multiple evasion becomes complete immunity (pending parameters)
+			// if (pokemon.hasType('Ghost')) pokemon.boosts['evasion'] > 2) {
+				// var targeted;
+				// targeted = pokemon.boosts['evasion'];
+				// this.boost({evasion: -targeted});
+			// }
 		},
 		onModifySpe(spe, pokemon) {
 			if (!pokemon.hasAbility('quickfeet')) {
@@ -55,8 +63,6 @@ let BattleStatuses = {
 		onStart(target, source, sourceEffect) {
 			if (sourceEffect && sourceEffect.effectType === 'Ability') {
 				this.add('-status', target, 'slp', '[from] ability: ' + sourceEffect.name, '[of] ' + source);
-			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
-				this.add('-status', target, 'slp', '[from] move: ' + sourceEffect.name);
 			} else {
 				this.add('-status', target, 'slp');
 			}
@@ -131,16 +137,25 @@ let BattleStatuses = {
 			}
 		},
 		onResidualOrder: 9,
-		onResidual(pokemon) {
-			this.damage(pokemon.maxhp / 8);
+		//*// onResidual(pokemon) {
+			//*// this.damage(pokemon.maxhp / 8);
+		// // // !
+		onResidual(target, pokemon) {
+			if (pokemon.hasType('Poison') && target.lastMove.id === 'twineedle' && target.moveLastTurnResult === true) {
+				this.damage(pokemon.maxhp / 16);
+			} else {
+				this.damage(pokemon.maxhp / 8);
+			}
 		},
+		// // // !
+		
 	},
 	tox: {
 		name: 'tox',
 		id: 'tox',
 		num: 0,
 		effectType: 'Status',
-		onStart(target, source, sourceEffect) {
+		onStart(target, source, sourceEffect) {						
 			this.effectData.stage = 0;
 			if (sourceEffect && sourceEffect.id === 'toxicorb') {
 				this.add('-status', target, 'tox', '[from] item: Toxic Orb');
@@ -188,6 +203,7 @@ let BattleStatuses = {
 			if (!this.randomChance(1, 3)) {
 				return;
 			}
+						
 			this.activeTarget = pokemon;
 			let damage = this.getDamage(pokemon, pokemon, 40);
 			if (typeof damage !== 'number') throw new Error("Confusion damage not dealt");
@@ -198,20 +214,61 @@ let BattleStatuses = {
 			}));
 			return false;
 		},
+		// switch() {} 7 break;
+		// Self Hit* default
+		// case //Use other move - (necessary to discover what attrLastMove functions to be) this.attrLastMove('[miss]')
+		// case// // // ! Variant: "But it Failed!" PP Cost this.add('-fail'); this.useMove(
+		// case//Struggle - Recoil move.id = 'struggle' moves = [] moves.push(move) pokemon.moveSlots
+		// case//loafing around - Turned Away! - Won't Obey!
+		// started napping- pokemon.setStatus('slp') (gen III onwards: does not recover status )
+		// case// // // !wakes next turn but moves last as with gen II 
+		// case//Return Ball forceSwitch pokemon.forceSwitchFlag isboolean (unsure whether true accomplishes task)
 	},
 	flinch: {
 		name: 'flinch',
 		id: 'flinch',
 		num: 0,
-		duration: 1,
-		onBeforeMovePriority: 8,
-		onBeforeMove(pokemon) {
+		duration: 1,							
+	// // // !
+		// let onePointonetwoX =
+							// [Golem, Alakazam, Machamp, Poliwrath, Gengar, 
+							//  Steelix, Scizor, Slowking, Porygon2, Kingdra, 
+							//  Milotic, Huntail, Gorebyss];
+	// // // !
+		onBeforeMovePriority: 8,		
+		onBeforeMove(pokemon, target) { 	
 			if (!this.runEvent('Flinch', pokemon)) {
-				return;
+			return;
 			}
+		// // // !		
+			let fuUuRoster = ['bite', 'boneclub', 'headbutt', 'hyperfang', 
+							 'rockslide', 'rollingkick', 'skyattack', 
+							 'snore', 'stomp', 'twister', 'waterfall'];
+						 
+			if (pokemon.lastMove && fuUuRoster.includes(pokemon.lastMove.id) && pokemon.moveLastTurnResult === true) 
+				// pokemon.lastMove.id === fuUuRoster				
+				zenkaiBoost = this.effectData.hitCount;
+			// zenkaiBoost++;
+			if (zenkaiBoost % 2 == 0 && target.boosts['accuracy'] < 6) { 
+				// // if (pokemon.status !== 'slp') redundant - perhaps when sleepUsable while target is sleeping
+					this.boost({accuracy: 1});
+			}
+		// // // !
 			this.add('cant', pokemon, 'flinch');
 			return false;
 		},
+	// // // !		
+		onFlinch(pokemon) {	
+		// onFoeFlinch onBegin
+		// onAnyModifySecondaries onSourceAfterSwitchInSelf
+						 
+			if (pokemon.volatiles.flinch.hitCount === [null, undefined]) pokemon.volatiles.flinch.hitCount = 0;
+			this.effectData.hitCount = pokemon.volatiles.flinch.hitCount;
+			this.effectData.hitCount++;
+			
+			return true;
+		},
+	// // // !		
 	},
 	trapped: {
 		name: 'trapped',
@@ -255,6 +312,10 @@ let BattleStatuses = {
 			} else {
 				this.damage(pokemon.maxhp / 8);
 			}
+		// // // !
+			if (['whirlpool', 'clamp'].includes(this.lastMove.id) && this.moveLastTurnResult === 'true')
+				this.damage(pokemon.maxhp / 5);
+		// // // !
 		},
 		onEnd(pokemon) {
 			this.add('-end', pokemon, this.effectData.sourceEffect, '[partiallytrapped]');
@@ -364,10 +425,10 @@ let BattleStatuses = {
 			pokemon.removeVolatile('truant');
 			return null;
 		},
-		onStart(pokemon) {
+		onLockMove(pokemon) {
 			this.add('-mustrecharge', pokemon);
+			return 'recharge';
 		},
-		onLockMove: 'recharge',
 	},
 	futuremove: {
 		// this is a slot condition
@@ -400,7 +461,7 @@ let BattleStatuses = {
 			}
 			const hitMove = new this.Data.Move(data.moveData);
 
-			this.trySpreadMoveHit([target], data.source, /** @type {ActiveMove} */(/** @type {unknown} */(hitMove)));
+			this.tryMoveHit(target, data.source, /** @type {ActiveMove} */(hitMove));
 		},
 	},
 	healreplacement: {
@@ -572,8 +633,38 @@ let BattleStatuses = {
 			this.add('-weather', 'SunnyDay', '[upkeep]');
 			this.eachEvent('Weather');
 		},
-		onEnd() {
+		// // // !		
+		onHitField(pokemon) {		
+			if (pokemon.status === 'slp') this.effectData.time = this.random(2, 7);
+			
+			if (pokemon.hasType('Fairy') && pokemon.boosts['evasion'] >= 1) {
+				var targeted;
+				targeted = pokemon.boosts['evasion'];
+				this.boost({evasion: -targeted});
+			}	
+		},
+		onWeather(pokemon) {			
+			if (pokemon.status === 'slp') pokemon.statusData.time--;
+			if (pokemon.hasType('Ghost')) {
+				var sourced;
+				sourced = pokemon.boosts['evasion'];				
+				if (sourced != 0) this.boost({evasion: -sourced});
+			}						
+			if (pokemon.hasType('Bug') && pokemon.boosts['evasion'] > 1) {
+				var targeted;
+				targeted = pokemon.boosts['evasion'];
+				this.boost({evasion: -targeted});
+			}
+		}, 		
+		// // // !
+		onEnd(target) {
 			this.add('-weather', 'none');
+		// // // !	
+			if (target.status === 'slp') {
+				// AND they woke up during...
+				if (target.statusData.time <= 0) this.boost({accuracy: 1}); 
+			}
+		// // // !		
 		},
 	},
 	desolateland: {
@@ -646,7 +737,7 @@ let BattleStatuses = {
 			if (this.field.isWeather('sandstorm')) this.eachEvent('Weather');
 		},
 		onWeather(target) {
-			this.damage(target.maxhp / 16);
+			this.damage(target.maxhp / 16);		
 		},
 		onEnd() {
 			this.add('-weather', 'none');
