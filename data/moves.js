@@ -5688,7 +5688,7 @@ let BattleMovedex = {
 		flags: {protect: 1, reflectable: 1, mirror: 1},
 		// // // !
 		onModifyMove(move, pokemon, target) {
-			if (this.field.isWeather === 'sunnyday' && ["", "par"].includes(target.status)) 
+			if (this.field.isWeather === 'sunnyday' && ["", "par"].includes(target.status)) {
 				move.boosts = {accuracy: -2};
 			}
 		},
@@ -19770,7 +19770,7 @@ let BattleMovedex = {
 		onAfterMove() {
 			//futuremove
 			if (originShell.includes(pokemon.baseTemplate.species)) {
-				this.boost({def: -1};
+				this.boost({def: -1});
 			}
 		},
 		// // // !
