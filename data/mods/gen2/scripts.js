@@ -844,7 +844,7 @@ let BattleScripts = {
 				}
 			}
 		}
-		if (move.crit === !false && defender.hasType('Fairy')) {
+		if (move.crit === !false && defender.hasType('Faery')) {
 			if (attacker.hasType('Fighting') && type === 'Fighting') {
 				move.crit = false;
 				if (!suppressMessages) {

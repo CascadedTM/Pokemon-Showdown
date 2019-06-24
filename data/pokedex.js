@@ -245,7 +245,7 @@ let BattlePokedex = {
 	kakuna: {
 		num: 14,
 		species: "Kakuna",
-		types: ["Bug", "Poison"],
+		types: ["Bug", "Ground"],
 		baseStats: {hp: 45, atk: 25, def: 50, spa: 25, spd: 25, spe: 35},
 		abilities: {0: "Shed Skin"},
 		heightm: 0.6,
@@ -687,7 +687,7 @@ let BattlePokedex = {
 	raichu: {
 		num: 26,
 		species: "Raichu",
-		types: ["Electric", "Fairy"],
+		types: ["Electric", "Faery"],
 		baseStats: {hp: 60, atk: 90, def: 55, spa: 90, spd: 80, spe: 110},
 		abilities: {0: "Static", H: "Lightning Rod"},
 		heightm: 0.8,
@@ -791,7 +791,7 @@ let BattlePokedex = {
 	nidorina: {
 		num: 30,
 		species: "Nidorina",
-		types: ["Poison"],
+		types: ["Faery", "Poison"],
 		gender: "F",
 		baseStats: {hp: 70, atk: 62, def: 67, spa: 55, spd: 55, spe: 56},
 		abilities: {0: "Poison Point", 1: "Rivalry", H: "Hustle"},
@@ -864,7 +864,7 @@ let BattlePokedex = {
 	clefairy: {
 		num: 35,
 		species: "Clefairy",
-		types: ["Fairy"],
+		types: ["Faery"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 70, atk: 45, def: 48, spa: 60, spd: 65, spe: 35},
 		abilities: {0: "Cute Charm", 1: "Magic Guard", H: "Friend Guard"},
@@ -879,7 +879,7 @@ let BattlePokedex = {
 	clefable: {
 		num: 36,
 		species: "Clefable",
-		types: ["Fairy", "Ghost"],
+		types: ["Faery", "Ghost"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 95, atk: 70, def: 73, spa: 95, spd: 90, spe: 60},
 		abilities: {0: "Cute Charm", 1: "Magic Guard", H: "Unaware"},
@@ -958,7 +958,7 @@ let BattlePokedex = {
 	jigglypuff: {
 		num: 39,
 		species: "Jigglypuff",
-		types: ["Normal", "Fairy"],
+		types: ["Normal", "Faery"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 115, atk: 45, def: 20, spa: 45, spd: 25, spe: 20},
 		abilities: {0: "Cute Charm", 1: "Competitive", H: "Friend Guard"},
@@ -973,7 +973,7 @@ let BattlePokedex = {
 	wigglytuff: {
 		num: 40,
 		species: "Wigglytuff",
-		types: ["Fighting", "Fairy"],
+		types: ["Fighting", "Faery"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 140, atk: 70, def: 45, spa: 85, spd: 50, spe: 45},
 		abilities: {0: "Cute Charm", 1: "Competitive", H: "Frisk"},
@@ -2705,7 +2705,6 @@ let BattlePokedex = {
 		num: 148,
 		species: "Dragonair",
 		types: ["Dragon", "Electric"],
-		types: ["Dragon", "Electric"],
 		baseStats: {hp: 61, atk: 84, def: 65, spa: 70, spd: 70, spe: 70},
 		abilities: {0: "Shed Skin", H: "Marvel Scale"},
 		heightm: 4,
@@ -3079,7 +3078,7 @@ let BattlePokedex = {
 	cleffa: {
 		num: 173,
 		species: "Cleffa",
-		types: ["Fairy"],
+		types: ["Faery"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 50, atk: 25, def: 28, spa: 45, spd: 55, spe: 15},
 		abilities: {0: "Cute Charm", 1: "Magic Guard", H: "Friend Guard"},
@@ -3093,7 +3092,7 @@ let BattlePokedex = {
 	igglybuff: {
 		num: 174,
 		species: "Igglybuff",
-		types: ["Normal", "Fairy"],
+		types: ["Normal", "Faery"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 90, atk: 30, def: 15, spa: 40, spd: 20, spe: 15},
 		abilities: {0: "Cute Charm", 1: "Competitive", H: "Friend Guard"},
@@ -3107,7 +3106,7 @@ let BattlePokedex = {
 	togepi: {
 		num: 175,
 		species: "Togepi",
-		types: ["Fairy"],
+		types: ["Faery"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 35, atk: 20, def: 65, spa: 40, spd: 65, spe: 20},
 		abilities: {0: "Hustle", 1: "Serene Grace", H: "Super Luck"},
@@ -3121,7 +3120,7 @@ let BattlePokedex = {
 	togetic: {
 		num: 176,
 		species: "Togetic",
-		types: ["Fairy", "Flying"],
+		types: ["Faery", "Flying"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 55, atk: 40, def: 85, spa: 80, spd: 105, spe: 40},
 		abilities: {0: "Hustle", 1: "Serene Grace", H: "Super Luck"},
@@ -3229,7 +3228,7 @@ let BattlePokedex = {
 	marill: {
 		num: 183,
 		species: "Marill",
-		types: ["Water", "Fairy"],
+		types: ["Water", "Faery"],
 		baseStats: {hp: 70, atk: 20, def: 50, spa: 20, spd: 50, spe: 40},
 		abilities: {0: "Thick Fat", 1: "Huge Power", H: "Sap Sipper"},
 		heightm: 0.4,
@@ -3244,7 +3243,7 @@ let BattlePokedex = {
 	azumarill: {
 		num: 184,
 		species: "Azumarill",
-		types: ["Water", "Fairy"],
+		types: ["Water"],
 		baseStats: {hp: 100, atk: 50, def: 80, spa: 60, spd: 80, spe: 50},
 		abilities: {0: "Thick Fat", 1: "Huge Power", H: "Sap Sipper"},
 		heightm: 0.8,
@@ -3480,7 +3479,7 @@ let BattlePokedex = {
 	wobbuffet: {
 		num: 202,
 		species: "Wobbuffet",
-		types: ["Psychic"],
+		types: ["Psychic", "???"],
 		baseStats: {hp: 190, atk: 33, def: 58, spa: 33, spd: 58, spe: 33},
 		abilities: {0: "Shadow Tag", H: "Telepathy"},
 		heightm: 1.3,
@@ -3493,7 +3492,7 @@ let BattlePokedex = {
 	girafarig: {
 		num: 203,
 		species: "Girafarig",
-		types: ["Dark", "Psychic"],
+		types: ["Faery", "Psychic"],
 		baseStats: {hp: 70, atk: 80, def: 65, spa: 90, spd: 65, spe: 85},
 		abilities: {0: "Inner Focus", 1: "Early Bird", H: "Sap Sipper"},
 		heightm: 1.5,
@@ -3580,7 +3579,7 @@ let BattlePokedex = {
 	snubbull: {
 		num: 209,
 		species: "Snubbull",
-		types: ["Fairy" , "Dark"],
+		types: ["Faery" , "Dark"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 60, atk: 80, def: 50, spa: 40, spd: 40, spe: 30},
 		abilities: {0: "Intimidate", 1: "Run Away", H: "Rattled"},
@@ -3898,7 +3897,7 @@ let BattlePokedex = {
 	phanpy: {
 		num: 231,
 		species: "Phanpy",
-		types: ["Ground", "Fairy"],
+		types: ["Ground", "Faery"],
 		baseStats: {hp: 90, atk: 60, def: 60, spa: 40, spd: 40, spe: 40},
 		abilities: {0: "Pickup", H: "Sand Veil"},
 		heightm: 0.5,

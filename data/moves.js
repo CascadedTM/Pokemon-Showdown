@@ -621,7 +621,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "adjacentAlly",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {spd: 2},
 		contestType: "Beautiful",
 	},
@@ -1082,7 +1082,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {def: 1},
 		contestType: "Cute",
 	},
@@ -2269,7 +2269,7 @@ let BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "The user's type changes based on the battle terrain. Normal type on the regular Wi-Fi terrain, Electric type during Electric Terrain, Fairy type during Misty Terrain, Grass type during Grassy Terrain, and Psychic type during Psychic Terrain. Fails if the user's type cannot be changed or if the user is already purely that type.",
+		desc: "The user's type changes based on the battle terrain. Normal type on the regular Wi-Fi terrain, Electric type during Electric Terrain, Faery type during Misty Terrain, Grass type during Grassy Terrain, and Psychic type during Psychic Terrain. Fails if the user's type cannot be changed or if the user is already purely that type.",
 		shortDesc: "Changes user's type by terrain (default Normal).",
 		id: "camouflage",
 		name: "Camouflage",
@@ -2283,7 +2283,7 @@ let BattleMovedex = {
 			} else if (this.field.isTerrain('grassyterrain')) {
 				newType = 'Grass';
 			} else if (this.field.isTerrain('mistyterrain')) {
-				newType = 'Fairy';
+				newType = 'Faery';
 			} else if (this.field.isTerrain('psychicterrain')) {
 				newType = 'Psychic';
 			}
@@ -2453,7 +2453,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {def: 1},
 		contestType: "Cute",
 	},
@@ -3112,7 +3112,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "allySide",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {spd: 1},
 		contestType: "Clever",
 	},
@@ -3387,7 +3387,7 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		secondary: null,
 		target: "allAdjacentFoes",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 160,
 		contestType: "Beautiful",
 	},
@@ -3734,7 +3734,7 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
 		secondary: null,
 		target: "allAdjacentFoes",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 100,
 		contestType: "Cute",
 	},
@@ -3969,7 +3969,7 @@ let BattleMovedex = {
 		multihit: [2, 5],
 		secondary: null,
 		target: "normal",
-		type: "Fairy", //*// "Normal",
+		type: "Faery", //*// "Normal",
 		zMovePower: 100,
 		contestType: "Cute",
 	},
@@ -4229,7 +4229,7 @@ let BattleMovedex = {
 		drain: [3, 4],
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 100,
 		contestType: "Cute",
 	},
@@ -5046,23 +5046,23 @@ let BattleMovedex = {
 		zMovePower: 120,
 		contestType: "Clever",
 	},
-	"fairylock": {
+	"Faerylock": {
 		num: 587,
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
 		desc: "Prevents all active Pokemon from switching next turn. A Pokemon can still switch out if it is holding Shed Shell or uses Baton Pass, Parting Shot, U-turn, or Volt Switch. Fails if the effect is already active.",
 		shortDesc: "Prevents all Pokemon from switching next turn.",
-		id: "fairylock",
-		name: "Fairy Lock",
+		id: "Faerylock",
+		name: "Faery Lock",
 		pp: 10,
 		priority: 0,
 		flags: {mirror: 1, authentic: 1},
-		pseudoWeather: 'fairylock',
+		pseudoWeather: 'Faerylock',
 		effect: {
 			duration: 2,
 			onStart(target) {
-				this.add('-fieldactivate', 'move: Fairy Lock');
+				this.add('-fieldactivate', 'move: Faery Lock');
 			},
 			onTrapPokemon(pokemon) {
 				pokemon.tryTrap();
@@ -5070,24 +5070,24 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "all",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {def: 1},
 		contestType: "Clever",
 	},
-	"fairywind": {
+	"Faerywind": {
 		num: 584,
 		accuracy: 100,
 		basePower: 40,
 		category: "Special",
 		shortDesc: "No additional effect.",
-		id: "fairywind",
-		name: "Fairy Wind",
+		id: "Faerywind",
+		name: "Faery Wind",
 		pp: 30,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 100,
 		contestType: "Beautiful",
 	},
@@ -5781,7 +5781,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 195,
 		contestType: "Beautiful",
 	},
@@ -5878,7 +5878,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMoveEffect: 'clearnegativeboost',
 		contestType: "Beautiful",
 	},
@@ -5910,7 +5910,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "all",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {def: 1},
 		contestType: "Beautiful",
 	},
@@ -6165,16 +6165,16 @@ let BattleMovedex = {
 			onNegateImmunity(pokemon, type) {
 		// // // ! Added Rock
 				if (pokemon.hasType('Ghost') && ['Normal', 'Fighting', 'Rock'].includes(type)) return false;
-				if (pokemon.hasType('Fairy') && type === 'Steel') return false; // what if steel types are plain oblivious?
+				if (pokemon.hasType('Faery') && type === 'Steel') return false; // what if steel types are plain oblivious?
 				if (pokemon.hasType('Dark') && type === 'Psychic') return false;
 			},
 			onEffectiveness(typeMod, target, type) {
 				if (target.hasType('Ghost') && type === 'Rock') return 1;
-				if (target.hasType('Fairy') && type === 'Steel') return 1;
+				if (target.hasType('Faery') && type === 'Steel') return 1;
 			},
 			onAnyModifyDamage(damage, target, move) {
 				if (target.hasType('Ghost') && move.type === 'Rock') return this.chainModify(2);
-				if (target.hasType('Fairy') && move.type === 'Steel') return this.chainModify(2);
+				if (target.hasType('Faery') && move.type === 'Steel') return this.chainModify(2);
 			},
 		// // // !
 			onModifyBoost(boosts) {
@@ -6701,7 +6701,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "self",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {atk: 1, def: 1, spa: 1, spd: 1, spe: 1},
 		contestType: "Beautiful",
 	},
@@ -7279,7 +7279,7 @@ let BattleMovedex = {
 		isZ: "tapuniumz",
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		contestType: "Tough",
 	},
 	"guillotine": {
@@ -7922,7 +7922,7 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 60,
 		category: "Special",
-		desc: "This move's type depends on the user's individual values (IVs), and can be any type but Fairy and Normal.",
+		desc: "This move's type depends on the user's individual values (IVs), and can be any type but Faery and Normal.",
 		shortDesc: "Varies in type based on the user's IVs.",
 		id: "hiddenpower",
 		name: "Hidden Power",
@@ -9666,7 +9666,7 @@ let BattleMovedex = {
 		isZ: "mimikiumz",
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		contestType: "Cool",
 	},
 	"lick": {
@@ -9713,7 +9713,7 @@ let BattleMovedex = {
 		recoil: [1, 2],
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 200,
 		contestType: "Beautiful",
 	},
@@ -9855,15 +9855,15 @@ let BattleMovedex = {
 			},
 			onNegateImmunity(pokemon, type) {
 				if (pokemon.hasType('Ghost') && ['Normal', 'Fighting', 'Rock'].includes(type)) return false;
-				if (pokemon.hasType('Fairy') && type === 'Steel') return false; 
+				if (pokemon.hasType('Faery') && type === 'Steel') return false; 
 			},
 			onEffectiveness(typeMod, target, type) {
 				if (target.hasType('Ghost') && type === 'Rock') return 1;
-				if (target.hasType('Fairy') && type === 'Steel') return 1;
+				if (target.hasType('Faery') && type === 'Steel') return 1;
 			},
 			onAnyModifyDamage(damage, target, move) {
 				if (target.hasType('Ghost') && move.type === 'Rock') return this.chainModify(2);
-				if (target.hasType('Fairy') && move.type === 'Steel') return this.chainModify(2);
+				if (target.hasType('Faery') && move.type === 'Steel') return this.chainModify(2);
 			},
 		},
 		secondary: null,
@@ -11012,11 +11012,11 @@ let BattleMovedex = {
 			onNegateImmunity(pokemon, type) {
 				if (pokemon.hasType('Dark') && type === 'Psychic') return false;
 				// // // !
-				if (pokemon.hasType('Fairy') && type === 'Steel') return false;
+				if (pokemon.hasType('Faery') && type === 'Steel') return false;
 				if (pokemon.hasType('Normal') && type === 'Ghost') return false;
 			},
 			onAnyModifyDamage(damage, target, move) {
-				if (target.hasType('Fairy') && move.type === 'Steel') return this.chainModify(2);
+				if (target.hasType('Faery') && move.type === 'Steel') return this.chainModify(2);
 			},
 			// // // !
 			onModifyBoost(boosts) {
@@ -11199,7 +11199,7 @@ let BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "For 5 turns, the terrain becomes Misty Terrain. During the effect, the power of Dragon-type attacks used against grounded Pokemon is multiplied by 0.5 and grounded Pokemon cannot be inflicted with a major status condition nor confusion. Camouflage transforms the user into a Fairy type, Nature Power becomes Moonblast, and Secret Power has a 30% chance to lower Special Attack by 1 stage. Fails if the current terrain is Misty Terrain.",
+		desc: "For 5 turns, the terrain becomes Misty Terrain. During the effect, the power of Dragon-type attacks used against grounded Pokemon is multiplied by 0.5 and grounded Pokemon cannot be inflicted with a major status condition nor confusion. Camouflage transforms the user into a Faery type, Nature Power becomes Moonblast, and Secret Power has a 30% chance to lower Special Attack by 1 stage. Fails if the current terrain is Misty Terrain.",
 		shortDesc: "5 turns. Can't status,-Dragon power vs grounded.",
 		id: "mistyterrain",
 		name: "Misty Terrain",
@@ -11250,7 +11250,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "all",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {spd: 1},
 		contestType: "Beautiful",
 	},
@@ -11274,7 +11274,7 @@ let BattleMovedex = {
 			},
 		},
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 175,
 		contestType: "Beautiful",
 	},
@@ -11322,7 +11322,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "self",
-		type: "Fairy",
+		type: "Faery",
 		zMoveEffect: 'clearnegativeboost',
 		contestType: "Beautiful",
 	},
@@ -11628,7 +11628,7 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 100,
 		contestType: "Tough",
 	},
@@ -12389,7 +12389,7 @@ let BattleMovedex = {
 			},
 		},
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMovePower: 175,
 		contestType: "Cute",
 	},
@@ -16575,7 +16575,7 @@ let BattleMovedex = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		contestType: "Clever",
 	},
 	"spiderweb": {
@@ -17634,7 +17634,7 @@ let BattleMovedex = {
 		volatileStatus: 'confusion',
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		zMoveBoost: {spa: 1},
 		contestType: "Cute",
 	},
@@ -18988,7 +18988,7 @@ let BattleMovedex = {
 		isZ: "fairiumz",
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Faery",
 		contestType: "Cool",
 	},
 	"twister": {

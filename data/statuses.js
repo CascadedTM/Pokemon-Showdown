@@ -637,7 +637,7 @@ let BattleStatuses = {
 		onHitField(pokemon) {		
 			if (pokemon.status === 'slp') this.effectData.time = this.random(2, 7);
 			
-			if (pokemon.hasType('Fairy')) {
+			if (pokemon.hasType('Faery')) {
 				// if(type === 'Steel') move.ignoreImmunity = true; onNegateImmunity move.type = '???' and make ??? 2x against this type
 				if (pokemon.boosts['evasion'] >= 1) {
 					var targeted;
