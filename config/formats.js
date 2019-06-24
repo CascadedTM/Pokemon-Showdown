@@ -65,6 +65,7 @@ let Formats = [
 		mod: 'gen2',
 		searchShow: false,
 		defaultLevel: 50,
+		maxForcedLevel: 50,
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
