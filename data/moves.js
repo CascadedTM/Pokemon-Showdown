@@ -15134,7 +15134,7 @@ let BattleMovedex = {
 		pp: 30,
 		priority: 0,
 		flags: {snatch: 1},
-		onModifyMove(target, move) { 
+		onModifyMove(move, target) { 
 			if (target.hasType('Steel')) move.boosts = {accuracy: 1};				
 		},
 		boosts: {
