@@ -637,11 +637,13 @@ let BattleStatuses = {
 		onHitField(pokemon) {		
 			if (pokemon.status === 'slp') this.effectData.time = this.random(2, 7);
 			
-			if (pokemon.hasType('Fairy') && pokemon.boosts['evasion'] >= 1) {
-				var targeted;
-				targeted = pokemon.boosts['evasion'];
-				this.boost({evasion: -targeted});
-			}	
+			if (pokemon.hasType('Fairy') {
+				// if(type === 'Steel') move.ignoreImmunity = true; onNegateImmunity move.type = '???' and make ??? 2x against this type
+				if (pokemon.boosts['evasion'] >= 1) {
+					var targeted;
+					targeted = pokemon.boosts['evasion'];
+					this.boost({evasion: -targeted});
+				}	
 		},
 		onWeather(pokemon) {			
 			if (pokemon.status === 'slp') pokemon.statusData.time--;

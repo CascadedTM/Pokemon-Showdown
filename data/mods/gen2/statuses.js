@@ -59,8 +59,8 @@ let BattleStatuses = {
 			var nightStash = pokemon.statusData.time + 1;
 			let	dreadTimer
 			for (const action of this.queue.entries()) {
-				if (action.choice === 'move') {
-			
+				if (action && action.choice === 'move') {
+				// // action.pokemon
 					if (action.choice === 'nightmare' && target.moveLastTurnResult === true) {
 							
 						dreadTimer = this.random(2, nightStash);
@@ -108,12 +108,12 @@ let BattleStatuses = {
 					
 					if (pokemon.lastMove 
 						&& [smoothMoves, shuiteMoves].includes(pokemon.lastMove.id) 
-						&& pokemon.movelastTurnResult === true) 
+						&& pokemon.moveLastTurnResult === true) 
 						{	break;}
 						
 					else if (pokemon.lastMove
 							&& pokemon.lastMove.id === 'nightmare' 
-							&& pokemon.moveThisTurnResult === true) 
+							&& pokemon.moveLastTurnResult === true) 
 						{	pokemon.statusData.time++;}
 
 					else {
@@ -202,9 +202,10 @@ let BattleStatuses = {
 				// onResidualOrder: ??
 				this.boost({evasion: 1});
 				//Does not occur immediately on thaw as with sleep, the turn must end
-				this.boost({accuracy: 1});
+				
 				// On turn 2 after thaw scale up accuracy
-				if (this.field.isWeather('sunnyday')) this.boost({accuracy: -2});
+				if (this.field.isWeather('sunnyday')) { 	this.boost({accuracy: -1});}
+				else { 		this.boost({accuracy: 1});}
 				// // duration: ^ after two turns during sun: accuracy++, two more turns same deal
 				//Operates normally not as end of turn
 			// // // !
@@ -410,7 +411,7 @@ let BattleStatuses = {
 				case 4: {
 					
 														
-					if (!target.hasType('Ghost')) { 
+					if (target.hasType('Ghost')) { 
 						this.add('-immune', target);	
 					} else {
 						this.useMove('struggle', pokemon);				
@@ -468,8 +469,9 @@ let BattleStatuses = {
 					// temporarily in play because it provides a supplement for the specific case 
 					// as it maintains confusion on switch	
 					this.useMove('batonpass', pokemon); 
+					//this.willAct or this.queue.entries.push('switch') this.queue.entries.shift(pokemon)
 					let switchIn = this.willSwitch(pokemon);
-					if (switchIn && move.selfSwitch === 'copyvolatile') switchIn.move.selfSwitch = true;
+					if (switchIn && move.selfSwitch === 'copyvolatile') move.selfSwitch = true;
 					// this.getActiveMove
 					// 'copyvolatile' <- should be nullified so that there isn't any stat passing 
 						// if (sourceEffect && (sourceEffect as Move).selfSwitch === 'copyvolatile') {

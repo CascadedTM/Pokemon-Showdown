@@ -534,6 +534,10 @@ let BattleScripts = {
 					this.debug('Cannot flinch a sleeping or frozen target');
 					continue;
 				}
+				if (secondary.volatileStatus === 'confusion' && target && target.status === 'frz') {
+					// this.debug('Cannot flinch a sleeping or frozen target');
+					continue;
+				}
 				 
 				// Multi-hit moves only roll for status once
 				if (!move.multihit || move.lastHit) {

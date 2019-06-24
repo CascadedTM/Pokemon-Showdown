@@ -1333,7 +1333,14 @@ let BattleMovedex = {
 			this.directDamage(target.maxhp / 2);
 			// // // !
 			if (target.status === 'par') { 
-				this.boost({atk: 2, def: -1}, target);
+				if (target.positiveBoosts() >= 1) {
+					this.boost({atk: 0}, target);
+				} else { 
+					this.boost({atk: 2, def: -1}, target);
+					// only boost one time around
+					// // this.effectData.atk = this.effectData.boosts;	
+					// // if (this.effectData.atk != 2) this.add('-fail', target);
+				}
 			} else {// // // !
 				this.boost({atk: 12}, target);
 			}
@@ -9676,8 +9683,8 @@ let BattleMovedex = {
 		flags: {contact: 1, protect: 1, mirror: 1},
 		// // // !
 		onModifyMove(move, target){
-			if (target.hasType('Normal')) move.type = '???';
-			
+			// if (target.hasType('Normal')) move.type = '???';
+			 if (target.hasType('Ghost')) move.secondary.chance = 0;
 		},
 		// // // !
 		secondary: {
@@ -9877,6 +9884,21 @@ let BattleMovedex = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1},
+		// // // !
+		onModifyMove(move, pokemon, target) {
+			if (['par', 'psn'].includes(target.status)) {
+				if ((target.gender === 'M' && pokemon.gender === 'F') && target.storedStats.spe < pokemon.storedStats.spe) {							
+					move.secondary.boosts = {evasion: -1};
+					move.secondary.self.boosts = {evasion: 0};	
+				} else if ((target.gender === 'F' && pokemon.gender === 'M')) {
+					move.secondary.boosts = {evasion: -1};
+					move.secondary.self.boosts = {evasion: 0};
+				} else {
+					move.secondary.boosts = {evasion: 0};
+					move.secondary.self.boosts = {evasion: -1};			
+				}
+			}
+		},
 		status: 'slp',
 		//* // secondary: null,
 		secondary: {
