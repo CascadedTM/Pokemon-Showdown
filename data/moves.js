@@ -1777,8 +1777,8 @@ let BattleMovedex = {
 		accuracy: 85, //*// 90
 		basePower: 70, //*// 50
 		// // //!
-		basePowerCallback(pokemon, target, move) {
-			return 70 * 0.6;
+		basePowerCallback(pokemon, target) {
+			return Math.floor(70 * 0.6);
 		},
 		// // //!
 		category: "Physical",
@@ -1794,10 +1794,10 @@ let BattleMovedex = {
 		// // //!
 		multiaccuracy: true,
 		onModifyMove(move, pokemon, target) {
-			if (move.hit != 0 || move.hit != 2 ) move.accuracy = 65;
+			if (move.hit == 1 ) move.accuracy = 65;
 		},
-		onAfterHit(target, move) {
-			if (move.hit == 2) target.addVolatile('confusion');
+		onHit(target, move) {
+			if (move.hit == 1) target.addVolatile('confusion');
 		},
 		// // //!
 		secondary: null,			
@@ -3884,6 +3884,11 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
+		// // // !
+			onModifyMove(move, pokemon, target) {
+				if (pokemon.lastMove && this.moveTurnResult === false) move.boosts = {spe: -1};
+			},
+		// // // !
 		recoil: [33, 100],
 		secondary: null,
 		target: "normal",
