@@ -10569,7 +10569,7 @@ let BattleMovedex = {
 			} else if (this.effectData.layers >= 1 || this.effectData.layers < 3)  {
 				this.effectData.layers++;
 				this.add('-start', pokemon, 'stockpile' + this.effectData.layers);
-				if (target.lastMove && ['sunnyday', 'sandstorm', 'raindance'].includes(target.lastMove.id && this.moveLastTurnResult === true) {
+				if (target.lastMove && ['sunnyday', 'sandstorm', 'raindance'].includes(target.lastMove.id) && this.moveLastTurnResult === true) {
 					if (this.field.isWeather === 'sunnyday') {		 this.effectData.layers++; this.add('-start', pokemon, 'stockpile' + this.effectData.layers);}
 					else if (this.field.isWeather === 'sandstorm') {		this.effectData.layers = 0; this.add('-start', pokemon, 'stockpile' + this.effectData.layers);}
 					else if (this.field.isWeather === 'raindance') { 		this.effectData.layers--; this.add('-start', pokemon, 'stockpile' + this.effectData.layers);}								
@@ -18846,14 +18846,16 @@ let BattleMovedex = {
 		multihit: 3,
 		multiaccuracy: true,
 		// // // !
-		onBeforeTurn(pokemon) {
-		// resolveAction
-			if (pokemon.storedStats.spe) {
+		onFoeBeforeMove(source, target, move) {
+			if (target.storedStats.spe > source.storedStats.spe) {
 				move.priority = 1;
 				// if (this.willMove(target) && this.willMove(source)) 
 				this.queue.unshift(this.willMove(pokemon));
 			}
 		},
+		// resolveAction(move, true) {
+			// if (move.hit == 2 && move.priority == 1) 
+		// },
 		onHit(target, source, move) {
 			let curSpe;		
 			curSpe = source.boosts.spe;
@@ -18862,35 +18864,27 @@ let BattleMovedex = {
 				move.self.boosts = {spe: 1};
 				if (curSpe !== source.boosts.spe) this.effectData.spe--;
 				// // }
-				this.effectData.hitCount = move.hit;				
+				// this.effectData.hitCount = move.hit;				
 			}
 		},	
 		onAfterDamage(target, source) {
 			const curSpD = source.boosts.spe;
-			 this.boost({spe: 1}, target, target);
-			// // if (curDef !== target.boosts.def) this.effectData.def--;
-			// // if (curSpD !== target.boosts.spd) this.effectData.spd--; */
+			this.boost({spe: 1}, target, target);
 		},		
 		onAfterMove() {
 			// let strikeCount
 			// strikeCount = move.hit; this.effectData.hitCount
-			if (this.effectData.spe == 0) { //
+			if (this.effectData.spe != 0) { //
 				/** @type {SparseBoostsTable} */
 				let boosts = {};
-				if (this.effectData.spe) boosts.spe = this.effectData.spe;
+				if (this.effectData.spe) boosts.spe = -this.effectData.spe;
 			}
 		},
 		self: {
-			// volatileStatus: 'lockedmove',
 			boosts: {
 				spe: 0,
 			},
 		},
-		// onAfterMove(pokemon) {
-			// if (pokemon.volatiles['lockedmove'] && pokemon.volatiles['lockedmove'].duration === 1) {
-				// pokemon.removeVolatile('lockedmove');
-			// }
-		// },
 		// // // !
 		secondary: null,
 		target: "normal",
