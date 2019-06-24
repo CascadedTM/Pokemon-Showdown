@@ -13939,6 +13939,9 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback(pokemon) {
+			// // // !			
+			if (pokemon.lastMove && this.moveThisTurnResult === true) this.boost({atk: 1});
+			// // // !
 			return Math.floor((pokemon.happiness * 10) / 25) || 1;
 		},
 		category: "Physical",

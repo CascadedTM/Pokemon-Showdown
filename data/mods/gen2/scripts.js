@@ -673,6 +673,7 @@ let BattleScripts = {
 			critRatio = this.clampIntRange(critRatio, 0, 3);				  
 			critMult.splice(1, 2); 
 			//// [0, 4, 3, 2];
+			if (this.willMove(attacker) && this.willMove(attacker) === 'move' && move.category === 'Physical') move.accuracy = true;
 		} 	
 		
 		if (type === 'Fire' && defender.hasType('Bird')) {
