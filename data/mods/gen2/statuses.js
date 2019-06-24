@@ -554,7 +554,7 @@ let BattleStatuses = {
 					if (target.volatiles['foresight']) this.damage(target.maxhp / 8);
 				}
 				
-				// if (move.id === 'rapidspin' && target.moveThisTurnResult && target.moveThisTurnResult === true)
+				if (move.id === 'rapidspin' && target.moveThisTurnResult && target.moveThisTurnResult === true)
 
 		// // // !
 		},

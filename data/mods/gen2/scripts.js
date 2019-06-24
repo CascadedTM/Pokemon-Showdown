@@ -1213,7 +1213,7 @@ let BattleScripts = {
 			damage *= 5;
 			damage = Math.round(damage / 4);
 		}
-		if (attacker.hasType('Grass') && move.id === 'gigadrain' && defender.hasType('Bug')) {
+		if (attacker.hasType('Grass') && move.id === 'gigadrain' && defender.hasType('Bug') && this.field.isWeather('sunnyday')) {
 			if (!suppressMessages) this.add('-supereffective', target);
 			damage *= 16;
 			damage = Math.round(damage / 9);

@@ -3969,7 +3969,7 @@ let BattleMovedex = {
 		multihit: [2, 5],
 		secondary: null,
 		target: "normal",
-		type: "Normal",
+		type: "Fairy", //*// "Normal",
 		zMovePower: 100,
 		contestType: "Cute",
 	},
@@ -10551,28 +10551,30 @@ let BattleMovedex = {
 		flags: {protect: 1, mirror: 1, heal: 1},
 		drain: [1, 2],
 		// // // !
-		effect: {
-			noCopy: true,
-			onModifyMove(move, pokemon) {
-				if (pokemon.status === 'tox') {
-					move.drain.shift(1);
-					// // move.drain[drain.length] = 4;
-					move.drain.push(4);
-				}
-				if (pokemon.hasType('Grass')) move.noCopy = false;
-			},
-			onStart(pokemon) {
-				this.effectData.layers = 1;
+		noCopy: true,
+		onModifyMove(move, pokemon) {
+			if (pokemon.status === 'tox') {
+				move.drain.shift(1);
+				// // move.drain[drain.length] = 4;
+				move.drain.push(4);
+			}
+			if (pokemon.hasType('Grass')) move.noCopy = false;
+		},
+		onHit(pokemon) {
+			if ([0, null].includes(this.effectData.layers)) {
+				this.effectData.layers = 1
+				
 				this.add('-start', pokemon, 'stockpile' + this.effectData.layers);
-			},
-			onRestart(pokemon) {
-				if (this.effectData.layers >= 3) return false;
+				
+			} else if (this.effectData.layers >= 1 || this.effectData.layers < 3)  {
 				this.effectData.layers++;
-				this.add('-start', pokemon, 'stockpile' + this.effectData.layers)
-			},
-			onEnd(pokemon) {
-				this.add('-end', pokemon, 'Stockpile');
-			},
+				this.add('-start', pokemon, 'stockpile' + this.effectData.layers);
+				if (target.lastMove && ['sunnyday', 'sandstorm', 'raindance'].includes(target.lastMove.id && this.moveLastTurnResult === true) {
+					if (this.field.isWeather === 'sunnyday') {		 this.effectData.layers++; this.add('-start', pokemon, 'stockpile' + this.effectData.layers);}
+					else if (this.field.isWeather === 'sandstorm') {		this.effectData.layers = 0; this.add('-start', pokemon, 'stockpile' + this.effectData.layers);}
+					else if (this.field.isWeather === 'raindance') { 		this.effectData.layers--; this.add('-start', pokemon, 'stockpile' + this.effectData.layers);}								
+				}
+			}	else if (this.effectData.layers >= 3) {this.add('-end', target, 'Stockpile');	return false;}
 		},
 		// // // !
 		secondary: null,
@@ -16375,8 +16377,8 @@ let BattleMovedex = {
 				return;
 			}
 			// // // !
-			if (pokemon.lastMove.id === 'megadrain' && pokemon.moveLastTurnResult === true 
-			&& pokemon.layers <= 3 && pokemon.layers >= 2 ) {
+			if (attacker.lastMove.id === 'megadrain' && attacker.moveLastTurnResult === true 
+			&& (attacker.megadrain.effectData.layers <= 3 || attacker.megadrain.layers >= 2)) {
 				this.attrLastMove('[still]');
 				return;
 			}
@@ -16387,10 +16389,6 @@ let BattleMovedex = {
 			attacker.addVolatile('twoturnmove', defender);
 			return null;
 		},
-		// // // !
-		// // onModifyMove (move, pokemon) {
-			
-		// // // !		},
 		onBasePower(basePower, pokemon, target) {
 			if (this.field.isWeather(['raindance', 'primordialsea', 'sandstorm', 'hail'])) {
 				this.debug('weakened by weather');
