@@ -3579,7 +3579,7 @@ let BattlePokedex = {
 	snubbull: {
 		num: 209,
 		species: "Snubbull",
-		types: ["Faery" , "Dark"],
+		types: ["Faery", "Dark"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 60, atk: 80, def: 50, spa: 40, spd: 40, spe: 30},
 		abilities: {0: "Intimidate", 1: "Run Away", H: "Rattled"},

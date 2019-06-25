@@ -803,6 +803,7 @@ let BattleMovedex = {
 							for (const action of this.queue) {
 								if (actor.choice !== ['switch', 'instaswitch']) 
 									this.prioritizeAction(action, target, null);
+									this.queue.entries.unshift(this.willMove(target));
 							}
 							this.add('-activate', target, 'move: After You');
 						}
@@ -4260,7 +4261,7 @@ let BattleMovedex = {
 	},
 	"dreameater": {
 		num: 138,
-		accuracy: 100,
+		accuracy: 85, //*// 100,
 		basePower: 100,
 		category: "Special",
 		desc: "The target is unaffected by this move unless it is asleep. The user recovers 1/2 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down.",
@@ -4277,16 +4278,23 @@ let BattleMovedex = {
 				return null;
 			}
 		// // // !
-			let moves = []; 
-			for (const moveSlot of target.moveSlots) {
-				const move = moveSlot.id;
-				if (move) moves.push(move); 
+		},
+		onHit(target, move) {
+			if (['Faery', 'Normal', 'Psychic'].includes(target.hasType)) {
+				let moves = []; 
+				for (const moveSlot of target.moveSlots) {
+					const move = moveSlot.id;
+					if (move) moves.push(move); 
+				}
+				
+				let randomChoice = this.random(1, moves.length);
+				let randomMove = moves[randomChoice];
+						 
+				if (target.hasType('Psychic')) {
+					this.add("-activate", target, 'move: Spite', this.getMove(target.lastMove.id).name, target.deductPP(target.lastMove.id, 1));
+				} else {	this.add("-activate", target, 'move: Spite', this.getMove(randomMove).name, target.deductPP(randomMove, 2));
+				}
 			}
-			
-			let randomChoice = this.random(1, moves.length);
-			let randomMove = moves[randomChoice];
-					 
-			this.add("-activate", target, 'move: Spite', this.getMove(randomMove).name, target.deductPP(randomMove, 2));
 		// // // !
 		},
 		secondary: null,
@@ -9648,6 +9656,12 @@ let BattleMovedex = {
 		pp: 30,
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, mirror: 1},
+		onModifyMove(move, target) {
+			if (target.status === 'slp') {
+				move.boosts = {def: 0};
+				this.add('-fail', target);
+			}
+		},
 		boosts: {
 			def: -1,
 		},
@@ -9687,9 +9701,10 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		// // // !
-		onModifyMove(move, target){
-			// if (target.hasType('Normal')) move.type = '???';
-			 if (target.hasType('Ghost')) move.secondary.chance = 0;
+		onModifyMove(move, target) {
+			if (!target.hasType('Normal')) { 	move.type = 'Ghost';
+			}	else {		move.type = '???';}
+			if (target.hasType('Ghost')) move.secondary.chance = 0;
 		},
 		// // // !
 		secondary: {
@@ -9762,7 +9777,7 @@ let BattleMovedex = {
 			onResidual(pokemon, target) {  
 				let switcher = this.randomChance(1, 5);
 				if (target.storedStats.spe < pokemon.storedStats.spe) {
-					if (move.duration < 3 && switcher == 1) { 
+					if (move.duration < 3 && switcher) { 
 						switch (this.random(1, 2)) {
 							case 1: this.queue.unshift(this.willMove(target));
 						// on some ocassions- move last
@@ -13792,7 +13807,7 @@ let BattleMovedex = {
 			onResidual(pokemon, target) {  
 				let switcher = this.randomChance(1, 5);
 				if (target.storedStats.spe < pokemon.storedStats.spe) {
-					if (move.duration < 3 && switcher == 1) { 
+					if (move.duration < 3 && switcher) { 
 						switch (this.random(1, 2)) {
 							case 1: this.queue.unshift(this.willMove(target));
 						// on some ocassions- move last

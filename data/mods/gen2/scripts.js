@@ -1179,61 +1179,64 @@ let BattleScripts = {
 		if (attacker.hasType('Bird') && birdMoves.includes(move.id)) damage = Math.floor(damage * 1.33);
 		if (attacker.hasType('Beast') && beastMoves.includes(move.id)) damage = Math.ceil(damage * 1.2); 					
 	// // // !	
-		if (move.id === 'whirlwhind' && ['Rock', 'Steel'].includes(target.hasType)) {
-			this.add('-fail', target);
-		}
-//*//*// !
-		if (defender.hasType('Rock') && defender.status === 'frz') {
-			if (!suppressMessages) this.add('-resisted', target);
-			damage *= 6;
-			damage = Math.round(damage / 5);
-		}
-		if (defender.hasType('Fighting') && move.id === 'Lick') {
-			if (!suppressMessages) this.add('-resisted', target);
-			damage = Math.ceil(damage / 2);
-		}
+	
+		let actor = this.willAct();
+		if (this.willMove(defender) && !['instaswitch', 'switch'].includes(actor.choice)) {
 		
-		if (defender.hasType('Rock') && lastMove.id === 'rockthrow' && move.lastTurnResult && move.lastTurnResult === true) {
-			let actor = this.willAct();
-			if (actor.choice === move && this.willMove(attacker) && move.type === 'Flying' && attacker.hasType('Flying')) {
+			if (move.id === 'whirlwhind' && ['Rock', 'Steel'].includes(defender.hasType)) {
+				this.add('-fail', defender);
+			}
+	//*//*// !
+			if (defender.hasType('Rock') && defender.status === 'frz') {
+				this.add('-resisted', defender);
 				damage *= 6;
-				damage = Math.round(damage / 9);
-			} 
-		}
-		
-		
-		if (defender.hasType('Beast') && defender.status === 'psn' && move.type === 'Poison' && attacker.hasType('Poison')) {
-			if (!suppressMessages) this.add('-supereffective', target);
-			damage *= 5;
-			damage = Math.floor(damage / 4);
-		}
-		
-		if (type === 'Fighting' && defender.status === 'frz') {
-			if (!suppressMessages) this.add('-supereffective', target);
-			damage *= 5;
-			damage = Math.round(damage / 4);
-		}
-		if (attacker.hasType('Grass') && move.id === 'gigadrain' && defender.hasType('Bug') && this.field.isWeather('sunnyday')) {
-			if (!suppressMessages) this.add('-supereffective', target);
-			damage *= 16;
-			damage = Math.round(damage / 9);
-		}
-		
-		
-		if (defender.hasType('Fighting') && move.id === 'slam') move.type = 'Fighting';
+				damage = Math.round(damage / 5);
+			}
+			if (defender.hasType('Fighting') && move.id === 'lick') {				
+				this.add('-resisted', defender);
+				damage = Math.ceil(damage / 2);
+				
+			}
 			
-		if (defender.hasType('Steel') && move.id === 'vicegrip') move.type = '???';
-		
-		let runThru = Math.round(attacker.maxhp * 0.87);
-		if (move.id === 'hornattack' && attacker.hp !== attacker.maxhp && attacker.hp >= runThru) { 
-			damage = Math.round(damage * 1.7);
-		} else if (move.id === 'hornattack' && attacker.hp === attacker.maxhp) { damage *= 2;}
-		
-		let theFury = Math.round(attacker.maxhp * 0.25);
-		if (['furyswipes', 'furyattack'].includes(move.id) && attacker.hp < theFury) {
-			damage *= 28;
-			damage = Math.floor(damage / 25);
+			if (defender.lastMove && defender.hasType('Rock') && defender.lastMove.id === 'rockthrow' && defender.moveLastTurnResult === true) {
+				if (actor.choice === 'move' && this.willMove(attacker) && move.type === 'Flying' && attacker.hasType('Flying')) {
+					damage *= 6;
+					damage = Math.round(damage / 9);
+				} 
+			}
+			
+			if (defender.hasType('Beast') && defender.status === 'psn' && move.type === 'Poison' && attacker.hasType('Poison')) {
+				this.add('-supereffective', defender);
+				damage *= 5;
+				damage = Math.floor(damage / 4);
+			}
+			
+			if (type === 'Fighting' && defender.status === 'frz') {
+				if (!suppressMessages) this.add('-supereffective', defender);
+				damage *= 5;
+				damage = Math.round(damage / 4);
+			}
+			if (attacker.hasType('Grass') && move.id === 'gigadrain' && defender.hasType('Bug') && this.field.isWeather('sunnyday')) {
+				this.add('-supereffective', defender);
+				damage *= 16;
+				damage = Math.round(damage / 9);
+			}
+			
+			
+			if (defender.hasType('Fighting') && move.id === 'slam') move.type = 'Fighting';
+				
+			if (defender.hasType('Steel') && move.id === 'vicegrip') move.type = '???';
+			
+			let runThru = Math.round(attacker.maxhp * 0.87);
+			if (move.id === 'hornattack' && attacker.hp !== attacker.maxhp && attacker.hp >= runThru) { 
+				damage = Math.round(damage * 1.7);
+			} else if (move.id === 'hornattack' && attacker.hp === attacker.maxhp) { damage *= 2;}
 		}
+		// // let theFury = Math.round(attacker.maxhp * 0.25);
+		// // if (['furyswipes', 'furyattack'].includes(move.id) && attacker.hp < theFury) {
+			// // damage *= 28;
+			// // damage = Math.floor(damage / 25);
+		// // }
 //*//*// !
 		
 		// Weather modifiers
