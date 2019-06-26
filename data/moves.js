@@ -3548,6 +3548,14 @@ let BattleMovedex = {
 		onHit(pokemon) {
 			pokemon.addVolatile('stall');
 		},
+		// // // !
+		onFoeAfterMove (target, move) {
+			// if (move.category !== 'Status' ) flags.contact
+				if (target.moveThisTurn === true && move.category !== 'Status') {
+					move.self.boosts = {accuracy: 1};
+				}
+		},	
+		// // // !
 		secondary: null,
 		target: "self",
 		type: "Fighting",
@@ -6375,7 +6383,7 @@ let BattleMovedex = {
 		basePowerCallback(pokemon) {
 			return Math.floor(((255 - pokemon.happiness) * 10) / 25) || 1;
 		},
-		beforeTurnCallback(){
+		beforeMoveCallback(){
 			if (this.moveThisTurnResult === false) this.boost({atk: 1});
 		},
 		category: "Physical",
@@ -13983,11 +13991,13 @@ let BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback(pokemon) {
-			// // // !			
-			if (pokemon.lastMove && this.moveThisTurnResult === true) this.boost({atk: 1});
-			// // // !
 			return Math.floor((pokemon.happiness * 10) / 25) || 1;
 		},
+		// // // !	
+		beforeMoveCallback() {					
+			if (this.moveThisTurnResult === true) this.boost({atk: 1});			
+		},
+		// // // !
 		category: "Physical",
 		desc: "Power is equal to the greater of (user's Happiness * 2/5), rounded down, or 1.",
 		shortDesc: "Max 102 power at maximum Happiness.",
@@ -16880,7 +16890,14 @@ let BattleMovedex = {
 				this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
 			},
 		},
-		secondary: null,
+		secondary: { 	//*// null,
+		// // // !
+			chance: 65,
+			boosts: {
+				accuracy: -1,
+			},
+		},
+		// // // !
 		target: "foeSide",
 		type: "Rock",
 		zMoveBoost: {def: 1},

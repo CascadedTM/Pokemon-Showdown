@@ -47,6 +47,11 @@ let BattleStatuses = {
 				return this.chainModify(0.5);
 			}
 		},
+		// // onModifyAccuracy(accuracy, pokemon) { 	 //, sourceEffect) {
+			/*if (sourceEffect && sourceEffect.effectType === 'Ability') return; */// // }
+				// // if (typeof accuracy !== 'number') return;
+				// // return accuracy * 3 / 2;
+		// // },
 		onBeforeMovePriority: 1,
 		onBeforeMove(pokemon) {
 			if (this.randomChance(1, 4)) {

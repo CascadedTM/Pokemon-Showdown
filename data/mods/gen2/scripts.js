@@ -1183,7 +1183,7 @@ let BattleScripts = {
 		let actor = this.willAct();
 		if (this.willMove(defender) && !['instaswitch', 'switch'].includes(actor.choice)) {
 		
-			if (move.id === 'whirlwhind' && ['Rock', 'Steel'].includes(defender.hasType)) {
+			if (move.id === 'whirlwhind' && ['Bird', 'Rock', 'Steel'].includes(defender.hasType)) {
 				this.add('-fail', defender);
 			}
 	//*//*// !

@@ -1686,7 +1686,7 @@ let BattlePokedex = {
 	farfetchd: {
 		num: 83,
 		species: "Farfetch'd",
-		types: ["Bird", "Grass"],
+		types: ["Bird", "Faery"],
 		baseStats: {hp: 52, atk: 90, def: 55, spa: 58, spd: 62, spe: 60},
 		abilities: {0: "Keen Eye", 1: "Inner Focus", H: "Defiant"},
 		heightm: 0.8,
