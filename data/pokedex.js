@@ -861,7 +861,7 @@ let BattlePokedex = {
 		evoItem: "Moon Stone",
 		eggGroups: ["Monster", "Field"],
 	},
-	clefairy: {
+	clefairy: { //cleFfairy
 		num: 35,
 		species: "Clefairy",
 		types: ["Faery"],
@@ -876,10 +876,10 @@ let BattlePokedex = {
 		evos: ["clefable"],
 		eggGroups: ["Fairy"],
 	},
-	clefable: {
+	clefable: { //cleFfable
 		num: 36,
 		species: "Clefable",
-		types: ["Ghost"],
+		types: ["Faery", "Ghost"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 95, atk: 70, def: 73, spa: 95, spd: 90, spe: 60},
 		abilities: {0: "Cute Charm", 1: "Magic Guard", H: "Unaware"},
@@ -955,7 +955,7 @@ let BattlePokedex = {
 		evoItem: "Ice Stone",
 		eggGroups: ["Field"],
 	},
-	jigglypuff: {
+	jigglypuff: { //jigglypuFf
 		num: 39,
 		species: "Jigglypuff",
 		types: ["Normal", "Faery"],
@@ -970,7 +970,7 @@ let BattlePokedex = {
 		evos: ["wigglytuff"],
 		eggGroups: ["Fairy"],
 	},
-	wigglytuff: {
+	wigglytuff: { //wigglytuFf
 		num: 40,
 		species: "Wigglytuff",
 		types: ["Fighting", "Faery"],
@@ -3103,7 +3103,7 @@ let BattlePokedex = {
 		eggGroups: ["Undiscovered"],
 		canHatch: true,
 	},
-	togepi: {
+	togepi: { //togepHi
 		num: 175,
 		species: "Togepi",
 		types: ["Faery"],
@@ -3117,7 +3117,7 @@ let BattlePokedex = {
 		eggGroups: ["Undiscovered"],
 		canHatch: true,
 	},
-	togetic: {
+	togetic: { //togeticH
 		num: 176,
 		species: "Togetic",
 		types: ["Faery", "Flying"],
@@ -3576,7 +3576,7 @@ let BattlePokedex = {
 		color: "Gray",
 		eggGroups: ["Mineral"],
 	},
-	snubbull: {
+	snubbull: { //snubbul
 		num: 209,
 		species: "Snubbull",
 		types: ["Faery", "Dark"],

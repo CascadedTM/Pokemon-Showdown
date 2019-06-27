@@ -322,13 +322,13 @@ let BattleStatuses = {
 			}
 		// // // !
 			
-			var foOnction =  Math.floor(Math.random() * 7) + 1;	 
+			var foOnction =  7 //Math.floor(Math.random() * 7) + 1;	 
 			if (foOnction <= 0 || foOnction > 7) foOnction = 1;
 			
 			let action = this.willMove(pokemon);
 			if (action && pokemon.getStat('spe') > target.getStat('spe')) {
 				if (foOnction == 5) {
-					this.queue.unshift(pokemon); 
+					this.queue.unshift(target); 
 				}
 			}
 			this.add('-activate', pokemon, 'confusion');
@@ -467,16 +467,16 @@ let BattleStatuses = {
 				case 7: {
 					
 					// temporarily in play because it provides a supplement for the specific case 
-					// as it maintains confusion on switch	
-					this.useMove('batonpass', pokemon); 
-					//this.willAct or this.queue.entries.push('switch') this.queue.entries.shift(pokemon)
-					let switchIn = this.willSwitch(pokemon);
-					if (switchIn && move.selfSwitch === 'copyvolatile') move.selfSwitch = true;
-					// this.getActiveMove
-					// 'copyvolatile' <- should be nullified so that there isn't any stat passing 
-						// if (sourceEffect && (sourceEffect as Move).selfSwitch === 'copyvolatile') {
-						// action.pokemon.switchCopyFlag = true;	
+					// as it maintains confusion on switch
+					this.useMove('batonpass', pokemon);
+					// let switchIn = this.willMove(pokemon);
+					// if (this.queue(switchIn) && switchIn.choice === 'move' && move.id === 'batonpass') move.selfSwitch = true;
 					
+					/* 
+					this.queue.shift(switchIn);
+					this.queue.push('switch'); */
+					
+					// 'copyvolatile' <- should be nullified so that there isn't any status passing
 					// Still need to determine what will trigger a vanilla switch '
 															
 					break;

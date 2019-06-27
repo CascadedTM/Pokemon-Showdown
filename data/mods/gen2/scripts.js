@@ -1231,12 +1231,13 @@ let BattleScripts = {
 			if (move.id === 'hornattack' && attacker.hp !== attacker.maxhp && attacker.hp >= runThru) { 
 				damage = Math.round(damage * 1.7);
 			} else if (move.id === 'hornattack' && attacker.hp === attacker.maxhp) { damage *= 2;}
+
+			let theFury = Math.round(attacker.maxhp * 0.25);
+			if (move.id === 'furyattack' && attacker.hp < theFury) {
+				damage *= 9;
+				damage = Math.floor(damage / 8);
+			}
 		}
-		// // let theFury = Math.round(attacker.maxhp * 0.25);
-		// // if (['furyswipes', 'furyattack'].includes(move.id) && attacker.hp < theFury) {
-			// // damage *= 28;
-			// // damage = Math.floor(damage / 25);
-		// // }
 //*//*// !
 		
 		// Weather modifiers

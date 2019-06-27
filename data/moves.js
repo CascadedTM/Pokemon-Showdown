@@ -1220,7 +1220,12 @@ let BattleMovedex = {
 		pp: 40,
 		priority: 0,
 		flags: {},
-		selfSwitch: 'copyvolatile',
+		onModifyMove(move, pokemon) {
+			if (['rage', 'lockon', 'minimize', 'defensecurl', 'destinybond', // 'uproar', 'charge', 'aquaring'  'banefulbunker'
+				 'focusenergy', 'furycutter', 'partiallytrapped', // 'stockpile', 'shelltrap', 'magnetrise', 'laserfocus',
+				 'perishsong', 'substitute'].includes(pokemon.volatiles)) move.selfSwitch = 'copyvolatile';
+		},
+		selfSwitch: true, //*// 'copyvolatile',
 		secondary: null,
 		target: "self",
 		type: "Normal",
@@ -6404,7 +6409,7 @@ let BattleMovedex = {
 	"furyattack": {
 		num: 31,
 		accuracy: 85,
-		basePower: 15,
+		basePower: 16, //*// 15,
 		category: "Physical",
 		desc: "Hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Skill Link Ability, this move will always hit five times.",
 		shortDesc: "Hits 2-5 times in one turn.",
@@ -6414,6 +6419,12 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		multihit: [2, 5],
+		effect: {
+			onModifyMove(move, pokemon) {
+				if (pokemon.activeTurns >= 15) {	move.multihit.shift(0);}
+				else if (pokemon.activeTurns >= 20) {	move.multihit.shift(1);}
+			}
+		},
 		secondary: null,
 		target: "normal",
 		type: "Normal",
@@ -6472,13 +6483,18 @@ let BattleMovedex = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
-		multihit: [2, 5],
-		effect: {
-			onModifyMove(move, pokemon) {
-				if (pokemon.activeTurns >= 15) {	move.multihit.shift(0);}
-				else if (pokemon.activeTurns >= 20) {	move.multihit.shift(1);}
+		multihit: [1, 2], //*// [2, 5],
+		// // // !
+		multiaccuracy: true,
+		self: {
+			volatileStatus: 'lockedmove',
+		},
+		onAfterMove(pokemon) {
+			if (pokemon.volatiles['lockedmove'] && pokemon.volatiles['lockedmove'].duration === 1) {
+				pokemon.removeVolatile('lockedmove');
 			}
 		},
+		// // // !
 		secondary: null,
 		target: "normal",
 		type: "Normal",
@@ -13633,7 +13649,8 @@ let BattleMovedex = {
 		// // // !
 		onModifyMove(move, pokemon, target) {
 			if (target.storedStats.spe === pokemon.storedStats.spe) {
-				if (this.queue(this.willMove(target)) && this.willMove(target) !== 'move' && move.id === 'rapidspin') move.priority = 1;
+				let adProxy = this.willMove(target);
+				if (adProxy && this.queue(adProxy) && adProxy === 'move' && move.id !== 'rapidspin') move.priority = 1;
 			}
 		},
 		// // // !
@@ -17666,6 +17683,12 @@ let BattleMovedex = {
 			if ((target.gender === 'M' && pokemon.gender === 'F') || (target.gender === 'F' && pokemon.gender === 'M')) {
 				move.accuracy = 81;
 			}
+			if ((target.gender === 'M' && pokemon.gender === 'M') || (target.gender === 'F' && pokemon.gender === 'F')) {
+				move.accuracy = 64;
+			}
+			if ((target.gender === 'M' && pokemon.gender === 'F') && target.volatiles['atract']) {
+				if (pokemon.storedStats.spe > target.storedStats.spe) move.boosts = {spe: -1};
+			}
 		},
 		// // // !
 		volatileStatus: 'confusion',
@@ -17973,6 +17996,14 @@ let BattleMovedex = {
 		pp: 20,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
+		// // onModifyMove(move, target) {
+			
+			// // if (target.hp < target.maxhp) {
+				// // move.recoil = Math.round(move.recoil * 0.9); .75 225
+			// // move.recoil = ; .8 .66) 200] .768 .5) 192] .75 .4) 187.5] .672 .33) 168] .6 .2) 150] .5 .1) 142]
+				
+			// // }
+		// // },
 		recoil: [1, 4],
 		secondary: null,
 		target: "normal",
@@ -19041,7 +19072,7 @@ let BattleMovedex = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		secondary: {
-			chance: 20,
+			chance: 20, //25 on those moves
 			volatileStatus: 'flinch',
 		},
 		target: "allAdjacentFoes",
