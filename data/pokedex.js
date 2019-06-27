@@ -879,7 +879,7 @@ let BattlePokedex = {
 	clefable: {
 		num: 36,
 		species: "Clefable",
-		types: ["Faery", "Ghost"],
+		types: ["Ghost"],
 		genderRatio: {M: 0.25, F: 0.75},
 		baseStats: {hp: 95, atk: 70, def: 73, spa: 95, spd: 90, spe: 60},
 		abilities: {0: "Cute Charm", 1: "Magic Guard", H: "Unaware"},
