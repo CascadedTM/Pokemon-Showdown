@@ -322,7 +322,7 @@ let BattleStatuses = {
 			}
 		// // // !
 			
-			var foOnction =  7 //Math.floor(Math.random() * 7) + 1;	 
+			var foOnction =  Math.floor(Math.random() * 7) + 1;	 
 			if (foOnction <= 0 || foOnction > 7) foOnction = 1;
 			
 			let action = this.willMove(pokemon);
