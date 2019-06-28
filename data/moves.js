@@ -1220,10 +1220,10 @@ let BattleMovedex = {
 		pp: 40,
 		priority: 0,
 		flags: {},
-		onModifyMove(move, pokemon) {
+		onModifyMove(move, target) { //pokemon) {
 			if (['rage', 'lockon', 'minimize', 'defensecurl', 'destinybond', // 'uproar', 'charge', 'aquaring'  'banefulbunker'
 				 'focusenergy', 'furycutter', 'partiallytrapped', // 'stockpile', 'shelltrap', 'magnetrise', 'laserfocus',
-				 'perishsong', 'substitute'].includes(pokemon.volatiles)) move.selfSwitch = 'copyvolatile';
+				 'perishsong', 'substitute'].includes(target.volatiles)) move.selfSwitch = 'copyvolatile';
 		},
 		selfSwitch: true, //*// 'copyvolatile',
 		secondary: null,
